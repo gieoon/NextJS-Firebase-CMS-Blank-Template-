@@ -1,0 +1,58 @@
+$primary-color: rgb(242,84,91);
+$secondary-color: rgb(242,84,91);
+$accent-color: rgb(240, 135, 140);
+$cta-color: #1e95a6;
+$hover-cta-color: #1b8695;
+
+.Header {
+    background-color: rgb(255,255,255);
+    padding: .75rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 999;
+    border-bottom: 1px solid rgb(221,221,221);
+    
+    .logo_container {
+        display: flex;
+        align-items: center;
+
+        cursor: pointer;
+        
+        &:hover {
+            opacity: .75;
+        }
+        
+        div {
+            margin-left: .35rem;
+            color: $primary-color;
+            font-weight: 600;
+            font-size: 1.05rem;
+
+            p {
+                margin: 0;
+                margin-top: -2.5px;
+                font-size: 1.25rem;
+            }
+        }
+    }
+
+    .links_container {
+        
+        width: fit-content;
+
+        span {
+            color: $secondary-color;
+            font-weight: 600;
+            margin: 0 1rem;
+            font-size: 1.05rem;
+            transition: color 75ms ease-in-out;
+            white-space: nowrap;
+
+            &:hover {
+                color: $accent-color;
+            }
+        }
+    }
+
+}

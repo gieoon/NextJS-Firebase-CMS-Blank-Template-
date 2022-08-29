@@ -1,0 +1,11 @@
+.react-datepicker-popper {
+    z-index: 99!important;
+}
+
+.Slug {
+    margin-top: 1rem;
+}
+
+.Slug label {
+    display: block;
+}

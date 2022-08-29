@@ -1,0 +1,108 @@
+$primary-color: rgb(242,84,91);
+$secondary-color: rgb(242,84,91);
+$accent-color: rgb(240, 135, 140);
+$primary-dark: rgb(218, 76, 82 );
+
+.HomePage {
+
+    .img2 {
+        width: 125px!important;
+        position: absolute;
+        left: 25%;
+        bottom: 80px;
+        transform: rotate(15deg) translate(-0%, 25%);
+    }
+
+    @media only screen and (max-width: 769px) {
+        .img2 {
+            right: 10%;
+            left: initial;
+            bottom: 50%;
+        }
+    }
+
+    .img3 {
+        width: 225px!important;
+        position: absolute;
+        left: 50%;
+        bottom: 50px;
+        transform: rotate(-5deg) translate(-50%, 25%);
+    }
+ 
+    .header_row {
+        background-color: $primary-color;
+        padding: 1rem 0;
+        padding-bottom: 0;
+        position: relative;
+        // overflow: hidden;
+        // max-width: 80rem;
+
+        img, object {
+            width: 316px; //375px;
+            display: block;
+            margin-right: -20px;
+            // box-shadow: 2px 0 4px rgba(0,0,0,.15);
+            // opacity: .75;
+            // height: 350px;
+        }
+
+        .inner {
+            padding: 0 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            color: white;
+            max-width: 80rem;
+            margin: auto;
+            // overflow: hidden;
+            z-index: 1;
+
+            h2 {
+                font-size: 1.75rem;
+            }
+            input {
+            }
+        }
+
+        .bottom_content {
+            background-color: $primary-dark;
+            padding: 0 1rem;
+            position: relative;
+            // opacity: .85;
+            // filter: blur(2px);
+
+            .inner {
+                max-width: 80rem;
+                margin: auto;
+                padding: .5rem 0;
+                color: white;
+                font-weight: 700;
+                font-size: 20px;
+                z-index: 9;
+            }
+        }
+    }
+
+    .want_more {
+        background-color: rgb(218,76,82);
+        padding: 1.5rem 1rem;
+        
+        .inner {
+            max-width: 80rem;
+            margin: auto;
+            color: white;
+            // display: flex;
+            // justify-content: flex-start;
+            // flex-direction: column;
+
+            h2 {
+                font-size: 1.75rem;
+            }
+
+            p {
+                font-weight: 400;
+                font-size: 1.05rem;
+            }
+        }
+    }
+}

@@ -1,0 +1,200 @@
+$primary-color: rgb(242,84,91);
+$secondary-color: rgb(242,84,91);
+$accent-color: rgb(240, 135, 140);
+$hover-color: rgb(240, 135, 140);
+$background-color: rgb(245,245,245);
+
+.Footer {
+
+    // color: rgb(255,255,255,.75);
+    padding: 2rem 1rem 1rem;
+    position: relative;
+    background-color: $primary-color;
+
+    .inner {
+        max-width: 80rem;
+        margin: auto;
+    }
+
+    // background-image: url('/bg-footer.png');
+
+    .background {   
+        position: absolute;
+        inset: 0;
+        z-index: -1; 
+        background-color: $background-color;
+        overflow: hidden;
+
+        // &:before {
+        //     content: "";
+        //     background-image: url("/maori_texture.png");
+        //     // filter: invert(17%) sepia(38%) saturate(5775%) hue-rotate(197deg) brightness(103%) contrast(104%);
+        //     background-repeat: repeat;
+        //     background-size: cover;
+        //     // background-size: contain;
+        //     inset: 0;
+        //     position: absolute;
+        //     bottom: 0;
+        //     // z-index: 1;
+        //     opacity: .15;
+        //     transform: rotate(-0deg);
+        //     right: 0;
+        //     transform-origin: 100% 0%;
+        // }
+        &:after {
+            content: "";
+            // background: linear-gradient(to bottom right, $background-color 50%, transparent);
+            // background: url("/koru.png");
+            background-repeat: no-repeat;
+            width: 200px;
+            height: 75%;
+            position: absolute;
+            // inset: 0;
+            right: 10vw;
+            bottom: 0;
+            background-size: contain;
+            transform: rotate(90deg) translateX(50%);
+            opacity: .65;
+        }
+    }
+
+    p {
+        // color: rgb(51, 51, 51); // #5e717d;
+        color: white;
+        font-size: 1.05rem; //.85rem;
+    }
+
+    .contact_details {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-bottom: 2px solid $primary-color;
+        width: fit-content;
+        padding-bottom: .25rem;
+        margin-bottom: 2rem;
+
+        h2 {
+            font-size: 1.5rem;
+            margin-left: 1rem;
+            margin-right: 2.5rem;
+
+        }
+        a {
+            font-weight: 600;
+            transition: color .3s ease;
+            display: block;
+            margin: .25rem 0;
+            font-size: 1.05rem;
+            // color: rgb(51, 51, 51); //#5e717d;
+            color: white;
+
+            &:hover {
+                color: $primary-color;
+            }
+        }
+    }
+
+    p {
+        margin: 0;
+    }
+
+    .links_container {
+        // display: flex;
+        // flex-wrap: wrap;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        display: none;
+
+        :nth-child(1) {
+            margin-left: 0!important;
+        }
+
+        span {
+            // color: rgb(51, 51, 51); //#5e717d;
+            color: white;
+            font-weight: 400;
+            margin: 1rem 0;
+            font-size: 1.05rem;
+            transition: color .3s ease-in-out;
+            display: block;
+            text-align: left;
+            width: fit-content;
+
+            &:hover {
+                // color: $primary-color;
+            }
+        }
+    }
+
+    .login_a {
+        font-size: 1.05rem;
+        // color: rgb(51, 51, 51); //#5e717d;
+        color: white;
+        // margin-left: .5rem;
+
+        &:hover {
+            // opacity: .5;
+        }
+    }
+
+    .socials_container {
+        display: flex;
+        margin-bottom: 1rem;
+        
+        > div {
+            margin-right: 1rem;
+        }
+
+        img {
+            filter: grayscale(100%) contrast(0) brightness(1.2) sepia(20%) hue-rotate(150deg);
+            cursor: pointer;
+            transition: all 250ms ease;
+    
+            &:hover {
+                filter: unset;
+            }
+        }
+    }
+
+    .footerContactDesc {
+        // color: #5e717d;
+        color: white;
+    }
+
+    .footerContactLinks {
+        display: flex;
+        flex-direction: column;
+        // color: #5e717d;
+        color: white;
+        font-weight: 600;
+        margin: 1rem 1rem;
+        font-size: 1rem;
+        align-items: flex-start;
+        justify-content: flex-start;
+
+        p {
+            text-align: left;
+            margin: 0;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+
+            svg {
+                margin-right: 5px;
+            }
+
+            b {
+                margin-left: 5px;
+                display: block;
+            }
+        }
+    }
+
+    .brand_name {
+        font-size: 1.05rem;
+        // color: rgb(51, 51, 51); //#5e717d;
+        color: white;
+        margin-bottom: 5px;
+        margin-top: 1rem;
+    }
+}

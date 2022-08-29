@@ -1,0 +1,48 @@
+$primary-color: rgb(242,84,91);
+$secondary-color: rgb(242,84,91);
+$accent-color: rgb(240, 135, 140);
+$hover-color: rgb(240, 135, 140);
+$cta-color: #1e95a6;
+$hover-cta-color: #1b8695;
+
+.StandardButton {
+    
+    margin: 1.5rem 1rem;
+
+    .inner {
+        margin: auto;
+        padding: 1rem 1.5rem;
+        border-radius: .5rem; //.5rem
+        width: fit-content;
+
+        background-color: $primary-color;
+        font-weight: 700;
+        color: white;
+        font-size: 1.25rem;
+        cursor: pointer;
+        transition: background-color 75ms ease-in-out;
+        box-shadow: inset 1px -24px 2px -20px rgb(0 0 0 / 20%);
+
+        &:hover {
+            background-color: $accent-color;
+        }
+
+        &.is_max_width {
+            width: 100%;
+        }
+
+        &.is_cta {
+            background-color: $cta-color;
+
+            &:hover {
+                background-color: $hover-cta-color;
+            }
+        }
+
+        span {
+            display: flex;
+            align-items: center;
+        }
+
+    }
+}
