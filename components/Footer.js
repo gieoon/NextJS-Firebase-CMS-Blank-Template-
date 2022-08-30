@@ -8,7 +8,6 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import { Help } from '@mui/icons-material';
 import ContactForm from './ContactForm';
-import NZMap from './maps/NZMap';
 
 export default function Footer () {
 
@@ -72,20 +71,6 @@ export default function Footer () {
                     {/* <p>Made by <a href="https://webbi.co.nz" target="_blank" rel="noreferer noopener" className={styles.login_a}>Webbi</a></p> */}
                 </div>
 
-                {/* Map with dots of every destination. */}
-                {/* <div className={styles.map_wrapper}>
-                    <NZMap 
-                        destinations={[]}
-                        circles={DestinationSequence.toMapCircles(destinationSequences)}
-                        lines={[]} 
-                        mapSize="small"
-                        // Hide numbers if not overall
-                        hideNumbers={false}
-                        // Show city text if not overall
-                        showAllText={false}
-                        notHighlightableText={true}
-                    />
-                </div> */}
             </div>
         </div>
     )
