@@ -17,18 +17,6 @@ const CMS = dynamic(
 
 /* Start of Firebase */
 
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBiw4ORAbMmxImx4qPGq9JAFtUI36PeYQ0",
-  authDomain: "sheets2website-1598313088115.firebaseapp.com",
-  databaseURL: "https://sheets2website-1598313088115.firebaseio.com",
-  projectId: "sheets2website-1598313088115",
-  storageBucket: "sheets2website-1598313088115.appspot.com",
-  messagingSenderId: "1082271392691",
-  appId: "1:1082271392691:web:45c06be046a0a72b5b21c6",
-  measurementId: "G-ZWGE5NLZ4Z"
-};
-
 if (getApps().length === 0) {
     app = initializeApp(firebaseConfig);
 } else {
