@@ -1,3 +1,17 @@
+:root{
+  --primary: rgb(248, 199, 39);
+  --secondary: rgb(228, 98, 113);
+  --primary-dark: rgb(168, 130, 5);
+  --accent:rgb(248, 229, 121);
+  --background: rgb(31,31,31);
+  --background-light: rgb(81,81,81);
+  --cta: #1e95a6;
+  --cta-hover : #1b8695;
+  --notice: rgb(218,76,82);
+  --text-color: rgb(245,245,245);
+
+}
+
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@300;700&display=swap');
 html,
 body {
