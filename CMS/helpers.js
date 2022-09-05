@@ -83,8 +83,11 @@ export const collectionNameToUrl = (collectionName) => {
     collectionName = stripHTML(collectionName)
                         .trim()
                         .toLowerCase()
+                        .replace(/'/g, '')
+                        .replace(/"/g, '')
                         .replace(/\?/g, '')
                         .replace(/\+/g, '')
+                        .replace(/\//g, '')
                         .replace(/[ ]{2,}/g, ' ') // Multiple spaces with one
                         .replace(/[ ]/g, '-')
                         .replace(/[_]/g, '-')
