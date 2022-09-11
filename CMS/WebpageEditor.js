@@ -450,7 +450,7 @@ export default function WebpageEditor({
                                             }
                                         }
                                         else {
-                                            out[o.val_e] = el.closest(`.${styles.cp_inner}`).querySelector("#" + o.value).value;
+                                            out[o.value] = el.closest(`.${styles.cp_inner}`).querySelector("#" + o.value).value;
                                         }
                                     }
                                     v.push(out);
