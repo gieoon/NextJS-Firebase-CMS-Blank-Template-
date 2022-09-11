@@ -872,6 +872,97 @@ $border: 1px solid $light-border-color;
     
 }
 
+.collection_item {
+    border-radius: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+    display: inline-block;
+    margin: 0 5px 0 0;
+    padding: 3px 8px;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid #999;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    position: relative;
+
+    .link_collection_dropdown {
+        position: absolute;
+        background: linear-gradient(180deg,#fdfdfd 0,#f6f7f8);
+        top: calc(100% + 5px);
+        // right: 0;
+        left: 0;
+        // transform: translateX(50%);
+        border: 1px solid #999;
+        border-radius: 2px;
+        z-index: 999;
+        display: none;
+
+        &.showing {
+            display: block;
+        }
+
+        div {
+            padding: 4px;
+
+            &:hover {
+                background-color: #1a73e8;
+                color: white;
+            }
+        }
+    }
+}
+
+.image_file {
+    border-radius: 2px;
+    padding-left: 3px;
+    padding-right: 3px;
+    display: inline-block;
+    margin: 0 5px 0 0;
+    padding: 3px 8px;
+    height: 30px;
+    box-sizing: border-box;
+    border: 1px solid #999;
+    color: #333;
+    text-decoration: none;
+    white-space: nowrap;
+    cursor: pointer;
+    position: relative;
+
+    .link_img_dropdown {
+        position: absolute;
+        background: linear-gradient(180deg,#fdfdfd 0,#f6f7f8);
+        top: calc(100% + 5px);
+        // right: 0;
+        left: 0;
+        border: 1px solid #999;
+        border-radius: 2px;
+        z-index: 999;
+        display: none;
+        max-height: 350px;
+        overflow: scroll;
+
+        &.showing {
+            display: block;
+        }
+
+        div {
+            padding: 4px;
+
+            &:hover {
+                background-color: #1a73e8;
+                color: white;
+            }
+        }
+
+        .option {
+
+        }
+    }
+}
+
 .link_file {
     // border-top-left-radius: 2px;
     // border-bottom-right-radius: 2px;
