@@ -93,6 +93,7 @@ export default function CMS_Freelance({
 
     const [showingAdditionalDate, setShowingAdditionalDate] = useState(false);
     const [additionalDate, setAdditionalDate] = useState(new Date());
+    const [orderInList, setOrderInList] = useState([]);
 
     const [editType, setEditType] = useState(0);
 
@@ -415,6 +416,7 @@ export default function CMS_Freelance({
     const saveNew = async () => {
         // Hack to trigger state change and refresh TextEditor
         setShowSaving(true);
+        setOrderInList(undefined);
         setRteInitTitle("_"/*"Saving..."*/);
         setRteInitContent("_"/*"Saving..."*/);
         let sectionName = pageData.sections[selectedSectionIndex].name;
@@ -518,6 +520,8 @@ export default function CMS_Freelance({
             ? showingEdit.id 
             : Date.now().toString();
         
+        d['orderInList'] = document.querySelector('#orderInList').value || null;
+        
         console.log('SAVING: ', d);
         // return;
 
@@ -534,6 +538,7 @@ export default function CMS_Freelance({
                 setNewTitle("");
                 setNewText("");
                 setNewDate(new Date());
+                setOrderInList(undefined);
                 setAdditionalDate(new Date());
                 setNewAudio([]);
                 setNewImages([]);
@@ -662,6 +667,7 @@ export default function CMS_Freelance({
         setNewFields([]);
         setRteInitTitle("");
         setRteInitContent("");
+        setOrderInList(undefined);
     }
 
     const removeUploadedImg = (url) => {
@@ -905,6 +911,7 @@ export default function CMS_Freelance({
                                             setRteInitContent={setRteInitContent}
                                             setShowingAdditionalDate={setShowingAdditionalDate}
                                             setNewFields={setNewFields}
+                                            setOrderInList={setOrderInList}
                                         />
                                     ))
                                 }
@@ -1099,6 +1106,12 @@ export default function CMS_Freelance({
                                 files={newFiles} // Pass files through to link to
                             />
                         </div>
+
+                        <div>
+                            <label htmlFor="orderInList">Order to display this in</label>
+                            <input id="orderInList" defaultValue={orderInList} />
+                        </div>
+
                     </div>
                     
                     <Loading loading={showSaving} /> 
@@ -1143,6 +1156,7 @@ const SectionContent = ({
     setNewFiles,
     setNewDate,
     setAdditionalDate,
+    setOrderInList,
     setNewTitle,
     setNewText,
     setShowingDeleteDialog,
@@ -1215,6 +1229,7 @@ const SectionContent = ({
                     setNewTitle(entry.title || "");
                     setNewText(entry.content || "");
                     setNewFields(entry.fields || []);
+                    setOrderInList(entry.orderInList);
 
                     setRteInitTitle(entry.title || "");
                     setRteInitContent(entry.content || "");
