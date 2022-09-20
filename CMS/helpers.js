@@ -1,5 +1,5 @@
 import { ref } from "@firebase/storage";
-import { query, getFirestore, onSnapshot, doc, collection, getDoc, getDocs } from "firebase/firestore";
+import { query, getFirestore, onSnapshot, doc, collection, getDoc, getDocs, where, orderBy, setDoc } from "firebase/firestore";
 
 export const loadWebpageDataSnapshot = async (projectName, cb) => {
     const db = getFirestore();
@@ -42,7 +42,10 @@ export const loadWebpageData = async (projectName) => {
 export const loadDynamicData = async (projectName, collectionName) => {
     const db = getFirestore();
     
-    const q = query(collection(db, 'CMS', projectName, collectionName));
+    const q = query(
+        collection(db, 'CMS', projectName, collectionName),
+        orderBy('orderInList'), // Hard defined field in CMS.js
+     );
     const querySnapshot = await getDocs(q);
     const out = [];
     querySnapshot.forEach(d => {
@@ -53,6 +56,22 @@ export const loadDynamicData = async (projectName, collectionName) => {
             ...d.data()
         });
     });
+    
+    // Save each with new data, for now.
+    // const docRef = doc(db, 'CMS', projectName, collectionName, d.id);
+    // var _d = d.data();
+    // _d.orderInList = _d.orderInList || null; 
+    // console.log('saving: d: ', _d);
+
+    // setDoc(docRef, _d, { merge: true})
+    //     .then(()=>{
+    //         console.log('Successfully saved entry');
+
+    //     })
+    //     .catch(err => {
+    //         console.error("Error saving new entry: ", err);
+    //     })
+
     return out;
     
 }
