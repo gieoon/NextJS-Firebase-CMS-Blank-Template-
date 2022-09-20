@@ -186,6 +186,7 @@ const StandardDropdownMultipleField = ({currentFields, field}) => {
 
     useEffect(() => {
         setCurrentField(convert());
+        handleChange(convert())
     }, [currentFields]);
 
     const handleChange = (vals) => {
@@ -255,6 +256,7 @@ const StandardDropdownField = ({currentFields, field}) => {
 
     useEffect(() => {
         setCurrentField(convert());
+        handleChange(convert())
     }, [currentFields]);
 
     const handleChange = (val) => {
@@ -448,7 +450,10 @@ const CollectionsDropdownMultipleField = ({currentFields, field}) => {
     const [documents, setDocuments] = useState([]);
 
     useEffect(() => {
-        convert().then(o => setCurrentField(o));
+        convert().then(o => {
+            setCurrentField(o);
+            handleChange(o);
+        });
 
         // Load the collection in from external source.
         loadDynamicData(PROJECT_NAME, field.collectionName)
@@ -524,6 +529,7 @@ const CollectionsDropdownField = ({currentFields, field}) => {
     useEffect(() => {
         convert().then(o => {
             setCurrentField(o);
+            handleChange(o)
         });
 
         // Load the collection in from external source.
