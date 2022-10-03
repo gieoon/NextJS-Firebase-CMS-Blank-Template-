@@ -1,7 +1,9 @@
 import React, {PropTypes} from 'react';
 import RichTextEditor, {createEmptyValue, EditorValue} from 'react-rte';
-import {RichUtils, EditorState, Modifier, convertToRaw} from 'draft-js'
+import {RichUtils, EditorState, Modifier, convertToRaw, AtomicBlockUtils} from 'draft-js'
 import {X} from 'react-feather';
+import styles from './CMS.module.scss';
+import { collectionNameToUrl } from './helpers';
 
 // https://github.com/sstur/react-rte/blob/master/src/EditorDemo.js
 // https://github.com/sstur/react-rte/blob/8c81622706a5f8856d39497bf33f92a97e9664fc/src/lib/EditorValue.js#L42
@@ -20,7 +22,11 @@ export default class RichEditor extends React.Component {
         // editorState: this.editorValue.getEditorState(),
         //this.props.value,//
         files: this.props.files,
-        showDropdown: false,
+        images: this.props.images,
+        pageData: this.props.pageData,
+        showFilesDropdown: false,
+        showImagesDropdown: false,
+        // showCollectionsDropdown: {},
     }
     
     componentDidUpdate(prevProps, prevState, snapshot){
@@ -39,9 +45,17 @@ export default class RichEditor extends React.Component {
 
     componentDidMount(){
       // console.log("mounted: ", this.props.initialValue);
-      // this.setState({
-      //   value: this.props.initialValue || "",
-      // });
+      if (this.props.pageData && this.props.pageData.sections) {
+        const out = {};
+        for (var sectionName of this.props.pageData.sections.map(s => s.name)) {
+          // out[sectionName] = false;
+        // }
+          this.setState({
+            [sectionName + '_showing']: false,
+            // showCollectionsDropdown: out
+          });
+        }
+      }
     }
     
     onChange = (value) => {
@@ -56,9 +70,73 @@ export default class RichEditor extends React.Component {
           );
         }
     };
+
+    // Modify text
+    insertText = (textToInsert) => {
+
+      return newEditorState;
+    }
+
+    // Data is dict of dict { { ... }, { ... }}
+    getCollectionDropdown(editorState, sectionName, data) {
+      if (!data) return <></>;
+      var collectionDatas = Object.values(data);
+      // console.log("rendering section data: ", collectionDatas);
+      return collectionDatas.length
+        ? <div className={styles.collection_item} onClick={() => {
+          console.log('Link to image clicked: ', collectionDatas);
+          
+          this.setState({
+            [sectionName + '_showing']: !this.state[sectionName + '_showing'],
+          });
+        }} style={{display: "inline-block"}}>
+          { this.state[sectionName + '_showing']
+            ? <X /> 
+            : sectionName
+          }
+          <div className={styles.link_collection_dropdown + " " + (this.state[sectionName + '_showing'] ? styles.showing : "")}>
+            {
+              // Only allow non blob: images
+              collectionDatas.map((collectionData, i)=>(
+                <div key={"link-file-"+i} onClick={()=>{
+                  console.log('collectionData selected: ', collectionData);
+
+                  // Insert new text
+                  const currentContent = editorState.getCurrentContent();
+                  const currentSelection = editorState.getSelection();
+        
+                  const newContent = Modifier.replaceText(
+                    currentContent,
+                    currentSelection,
+                    // '[' + collectionNameToUrl(collectionData.title) + ':' + collectionData.id + ']',
+                    `[${sectionName}:` + collectionData.id + ']',
+                  );
+            
+                  const newEditorState = EditorState.push(editorState, newContent, 'insert-characters');
+
+                  const newValue = new EditorValue(
+                    newEditorState
+                  );
+
+                  this.setState({
+                    value: newValue,
+                  })
+                  this.props.onChange(
+                    newValue.toString('html')
+                  );
+                }}>
+                  <span>{collectionNameToUrl(collectionData.title)}</span>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+        : <></>
+    };
+    
     
     render () {
-      // console.log(this.state.value);
+      // console.log(this.props.pageData);
 
         const toolbarConfig = {
             display: [
@@ -73,11 +151,14 @@ export default class RichEditor extends React.Component {
               {label: 'Italic', style: 'ITALIC'},
               {label: 'Underline', style: 'UNDERLINE'},
             ],
+            // https://draftjs.org/docs/advanced-topics-custom-block-render-map/
             BLOCK_TYPE_DROPDOWN: [
               {label: 'Normal', style: 'unstyled'},
               {label: 'Small Title', style: 'header-three'},
               {label: 'Medium Title', style: 'header-two'},
               {label: 'Large Title', style: 'header-one'},
+              {label: 'Image Caption', style: 'header-six'},
+              {label: 'Quote', style: 'blockquote'},
             ],
             BLOCK_TYPE_BUTTONS: [
               {label: 'UL', style: 'unordered-list-item'},
@@ -98,6 +179,103 @@ export default class RichEditor extends React.Component {
             onChange={this.onChange}
             toolbarConfig={toolbarConfig}
             customControls={[
+              (setValue, getValue, editorState) => {
+                
+                if (!this.props.pageData || !this.props.pageData.sections) return <></>;
+                // console.log('this.props.pageData: ', this.props.pageData);
+
+                var sections = this.props.pageData.sections;
+
+                const out = [];
+
+                // for (var section of sections) {
+                return sections.map((section, i) => (
+                  <div key={'editing-section-'+i} style={{display: 'inline-block'}}>
+                    {this.getCollectionDropdown(editorState, section.name, this.props.pageData[section.name])}
+                  </div>
+                // return sections.forEach(section => {
+                  // Load each section.
+                  // console.log(section.name, this.props.pageData)
+                  // var collection = this.props.pageData[section.name];
+                  // console.log("collection: ", collection)
+                  // if (!collection) return <></>;
+
+                  // out.push(
+                    // return 
+                    // this.getCollectionDropdown(section.name, collection)
+                  // );
+                ))
+                // }
+                // )
+                
+                // console.log('out: ', out);
+                // return out.map((el) => <div>{el}</div>)
+              },
+              (setValue, getValue, editorState) => {
+                return this.props.images
+                  ? <div className={styles.image_file} onClick={() => {
+                    console.log('Link to image clicked: ', this.props.images);
+                    this.setState({
+                      showImagesDropdown: !this.state.showImagesDropdown,
+                    });
+                  }} style={{display: this.props.images.length ? "inline-block" : "none"}}>
+                    { this.state.showImagesDropdown 
+                      ? <X /> 
+                      : "Link to an image"
+                    }
+                    <div className={styles.link_img_dropdown + " " + (this.state.showImagesDropdown ? styles.showing : "")}>
+                      {
+                        // Only allow non blob: images
+                        this.props.images/*.filter(f => !f.url.includes('blob:'))*/.map((file, i)=>(
+                          <div key={"link-file-"+i} onClick={()=>{
+                            console.log('file selected: ', file);
+
+                            // Insert Image
+                            var contentState = editorState.getCurrentContent();
+                            const contentStateWithEntity = contentState.createEntity(
+                              'IMAGE',
+                              'IMMUTABLE',
+                              {src: file.url, //file.name
+                              class: "image-link",
+                              height: '200px',
+                              width: '200px',
+                              // objectFit: 'contain',
+                              backgroundSize: 'contain',
+                              // style: {width:'150px', height: '150px'}
+                              }
+                            )
+                            const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+                            const newEditorState = EditorState.set(editorState, {
+                              currentContent: contentStateWithEntity,
+                            });
+
+                            // const newValue = new EditorValue(
+                            //   RichUtils.toggleLink(
+                            //     newEditorState,
+                            //     newEditorState.getSelection(),
+                            //     entityKey,
+                            //   'html'),
+                            // )
+                            const newValue = new EditorValue(
+                              AtomicBlockUtils.insertAtomicBlock(newEditorState, entityKey, ' ')
+                            );
+
+                            this.setState({
+                              value: newValue
+                            })
+                            this.props.onChange(
+                              newValue.toString('html')
+                            );
+                          }}>
+                            <img src={file.url} width="50px" height="50px" style={{objectFit:"cover"}} />
+                            <span>{file.name}</span>
+                          </div>
+                        ))
+                      }
+                    </div>
+                  </div>
+                  : <></>
+              },
               (setValue, getValue, editorState) => {
                 // console.log(getValue('custom-file-link').toString());
                 // console.log(editorState.getCurrentContent().toString())
@@ -128,19 +306,19 @@ export default class RichEditor extends React.Component {
                 // console.log(this.state.value.getEditorState().getCurrentContent())
                 // console.log(this.state.value.getCurrentContent().toString())
                 return this.props.files
-                  ? <div className="link-file" onClick={()=>{
+                  ? <div className={styles.link_file} onClick={()=>{
                       console.log('Link to file clicked: ', this.props.files);
                       // console.log(window.getSelection().toString());
                       this.setState({
-                        showDropdown: !this.state.showDropdown,
+                        showFilesDropdown: !this.state.showFilesDropdown,
                       });
                       // setValue('custom-file-link', this.state.value);
                     }} style={{display: this.props.files.length ? "inline-block" : "none"}}>
-                      { this.state.showDropdown 
+                      { this.state.showFilesDropdown 
                         ? <X /> 
                         : "Link to a file"
                       }
-                      <div className={"link-file-dropdown " + (this.state.showDropdown ? "showing" : "")}>
+                      <div className={styles.link_file_dropdown + " " + (this.state.showFilesDropdown ? styles.showing : "")}>
                         {
                           this.props.files.map((file, i)=>(
                             <div key={"link-file-"+i} onClick={()=>{
