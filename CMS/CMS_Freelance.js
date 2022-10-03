@@ -416,13 +416,14 @@ export default function CMS_Freelance({
     const saveNew = async () => {
         // Hack to trigger state change and refresh TextEditor
         setShowSaving(true);
-        setOrderInList(undefined);
         setRteInitTitle("_"/*"Saving..."*/);
         setRteInitContent("_"/*"Saving..."*/);
         let sectionName = pageData.sections[selectedSectionIndex].name;
         
         // Only save to storage if not already saved, determined by checking to see if it is local link.
         var imgObjs = [];
+        const blobImgMap = {};
+        // Map unsaved image 'blob:' link to uploaded link to be able to modify existing inline images that are mapped to blob:
         for(var i=0;i<newImages.length;i++){
             var imgObj = (newImages[i].downloadUrl || "").includes(STORAGE_ROOT)
                 ? newImages[i] : await saveImage(newImages[i]);
@@ -431,6 +432,7 @@ export default function CMS_Freelance({
                 id: newImages[i].id,
                 name: newImages[i].name
             });
+            blobImgMap[newImages[i].url] = imgObj.url;
         }
 
         var audioObjs = [];
@@ -521,6 +523,14 @@ export default function CMS_Freelance({
             : Date.now().toString();
         
         d['orderInList'] = document.querySelector('#orderInList').value || null;
+        
+        setOrderInList(undefined);
+        
+        // Replace all blob: url's in content with uploaded urls.
+        for (var blobUrl of Object.keys(blobImgMap)) {
+            console.log("Replacing blobURL in content: ", blobUrl, ' with: ', blobImgMap[blobUrl]);
+            d.content = d.content.replaceAll(blobUrl, blobImgMap[blobUrl]);
+        }
         
         console.log('SAVING: ', d);
         // return;
