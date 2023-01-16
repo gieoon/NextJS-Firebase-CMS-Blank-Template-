@@ -7,11 +7,10 @@ import {APP_ICON, PROJECT_NAME, SITE_URL, TWITTER_HANDLE} from '../constants';
 import { collectionNameToUrl, getFieldName, loadDynamicData, loadDynamicDataSnapshot, loadFromPath, loadWebpageData, loadWebpageDataSnapshot } from '../CMS/helpers'
 import Image from 'next/image';
 import SearchBar from '../components/Searchbar'
-import TripCard from '../components/cards/TripCard';
 import { createBrotliCompress } from 'zlib'
-import Trip from '../models/Trip'
 import StandardButton from '../components/shared/StandardButton'
 import BasicModal from '../components/Dialog'
+import Trip from '../models/Trip'
 
 export default function IndexPage({
     websiteContent,
@@ -108,7 +107,7 @@ export default function IndexPage({
                 
                 <div className="tiles">
                     { _trips.map((trip, i) => (
-                        <TripCard key={'tripcard-'+i} trip={trip} />
+                        <div key={'tripcard-'+i} />
                     ))
 
                     }

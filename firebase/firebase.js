@@ -6,6 +6,10 @@ import { getAuth } from "firebase/auth";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 
+const firebaseConfig = {
+    // Paste in firestore configuration here.
+    projectId: 'abc'
+}
 
 var app;
 
