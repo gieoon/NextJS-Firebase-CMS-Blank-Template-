@@ -15,7 +15,7 @@ const AboutPage: NextPage = () => {
   return (
     <div className={styles.container}>
       <Head>
-          <title>Get with Girls | Chat with Girls | Fun with Girls</title>
+          <title>About Page</title>
           <meta name="description" content="" />
           <link rel="icon" href={APP_ICON} />
 
