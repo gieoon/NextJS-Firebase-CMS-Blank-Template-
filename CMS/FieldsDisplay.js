@@ -1,6 +1,6 @@
 // Displaying custom fields in the CMS based on templates created in Firestore.
 
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Check, ChevronDown, ChevronUp, Plus, Square} from 'react-feather';
 import styles from './CMS.module.scss';
 import Select from 'react-select';
@@ -9,6 +9,8 @@ import { loadDynamicData, loadFromPath, stripHTML } from './helpers';
 import { uuidv4 } from '@firebase/util';
 import { PROJECT_NAME } from '../constants';
 import { Remove } from '@mui/icons-material';
+import TextEditor from './TextEditor';
+import RichTextEditor, {createEmptyValue, EditorValue} from 'react-rte';
 
 export default function FieldsDisplay({
     currentSection,
@@ -69,6 +71,8 @@ const getFieldDisplay = (currentFields, field) => {
             return <TextField currentFields={currentFields} field={field} />
         case "text-long":
             return <TextLongField currentFields={currentFields} field={field} />
+        case 'rich-text':
+            return <RichTextField currentFields={currentFields} field={field} />
         // Dropdown that takes a single value from another collection.
         case "collections-dropdown":
             return <CollectionsDropdownField currentFields={currentFields} field={field} />
@@ -613,6 +617,49 @@ const TextLongField = ({currentFields, field}) => {
                 className={'read-my-value'}
                 style={{resize: "vertical", height: '150px'}}
                 defaultValue={currentField[field.label]} />
+        </div>
+    )
+}
+
+const RichTextField = ({currentFields, field}) => {
+
+    const textAreaRef = useRef();
+
+    const convert = () => {
+        return {
+            type: 'rich-text',
+            [field.label]: getCurrentField(currentFields, field)[field.label],
+        }
+    }
+
+    const [currentField, setCurrentField] = useState(convert());
+
+    useEffect(() => {
+        setCurrentField(convert());
+    }, [currentFields]);
+
+    // console.log("intiailizing rte with:", currentField[field.label]);
+
+    return (
+        <div className="subfield">
+            <h4 id={field.type} className="read-my-type">{field.label}</h4>
+            
+            {/* Store the contents of the text editor here invisibly. */}
+            <textarea 
+                id={field.label} 
+                style={{display: 'none'}} 
+                className="read-my-value" 
+                defaultValue={currentField[field.label]}
+                ref={textAreaRef} 
+            />
+            <TextEditor 
+                initialValue={currentField[field.label]}
+                value={RichTextEditor.createValueFromString(currentField[field.label], 'html')}
+                onChange={(val) => {
+                    // console.log('field richtext updated', val);
+                    textAreaRef.current.value = val;
+                }} 
+            />
         </div>
     )
 }
