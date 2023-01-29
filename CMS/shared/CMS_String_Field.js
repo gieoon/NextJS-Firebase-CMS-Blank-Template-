@@ -1,3 +1,14 @@
-export default function CMS_String_Field({id, websiteContent}) {
-    return <div id={id} className="cp-editable">{websiteContent[id]}</div>
+export default function CMS_String_Field({
+    id, 
+    websiteContent, 
+    placeholder,
+    c,
+}) {
+    return <p 
+        id={id} 
+        className={"cp-editable " + c}>{
+            websiteContent[id] 
+                ? websiteContent[id] 
+                : placeholder
+        }</p>
 }
