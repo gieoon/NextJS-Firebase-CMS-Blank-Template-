@@ -1114,6 +1114,8 @@ export default function CMS_Freelance({
                                 value={RichTextEditor.createValueFromString(newText, 'html')}
                                 onChange={onTextChange} 
                                 files={newFiles} // Pass files through to link to
+                                images={newImages}
+                                pageData={pageData}
                             />
                         </div>
 
