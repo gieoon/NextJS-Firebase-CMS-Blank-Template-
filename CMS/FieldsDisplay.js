@@ -5,7 +5,7 @@ import {Check, ChevronDown, ChevronUp, Plus, Square} from 'react-feather';
 import styles from './CMS.module.scss';
 import Select from 'react-select';
 import { collection, getFirestore } from 'firebase/firestore';
-import { loadDynamicData, loadFromPath, stripHTML, swapIndexes } from './helpers';
+import { loadDynamicData, loadFromPath, stripHTML } from './helpers';
 import { uuidv4 } from '@firebase/util';
 import { PROJECT_NAME } from '../constants';
 import { Remove } from '@mui/icons-material';
@@ -350,6 +350,15 @@ const CollectionsArrayField = ({currentFields, field}) => {
         // console.log("deleting index");
         const _currentField = currentField.slice();
         _currentField.splice(index, 1);
+        setCurrentField([..._currentField]);
+    }
+    
+    const swapIndexes = (originalIndex, newIndex) => {
+        const _currentField = currentField.slice();
+        // console.log("Swapping indexes: ", originalIndex, newIndex)
+        const originalIndexValue = _currentField[originalIndex];
+        _currentField[originalIndex] = _currentField[newIndex];
+        _currentField[newIndex] = originalIndexValue;
         setCurrentField([..._currentField]);
     }
 
