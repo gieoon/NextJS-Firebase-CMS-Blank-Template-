@@ -19,6 +19,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import WebpageEditor from './WebpageEditor.js';
 import FieldsDisplay from './FieldsDisplay';
 import Head from 'next/head';
+import { swapIndexes } from './helpers';
 import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from '@firebase/auth';
 import { collection, deleteDoc, doc, getDoc, updateDoc, getDocs, getFirestore, onSnapshot, orderBy, query, setDoc, serverTimestamp } from 'firebase/firestore';
 // import { GlobalContext } from '../../context/GlobalContextProvider';
