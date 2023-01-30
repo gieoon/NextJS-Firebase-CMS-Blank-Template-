@@ -5,7 +5,7 @@ Blank template to help create websites and update them through Firebase.
 
 This is a framework I'm using to make JAM stack websites for clients. 
 The way it is set up is via one main firebase projects with multi-tenancy of sub-projects per client.
-If this repo gets 5 stars, I'll fix existing bugs, add in a demo and documentation to help you integrate your own version with firebase.
+If this repo gets attention, I'll fix existing bugs, add in a demo and documentation to help you integrate your own version with firebase.
 
 1. Create a Firebase Project
 2. Paste the config details in /firebase/firebase.js
