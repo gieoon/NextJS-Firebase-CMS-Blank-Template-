@@ -866,7 +866,7 @@ export default function CMS_Freelance({
                         }
                     </div>
                     <div className={styles.attribution}>
-                        <span>Website content management - Webbi&copy; 2021</span>
+                        <span>Website content management - Webbi&copy; {new Date().getFullYear()}</span>
                     </div>
                 </div>
                 <div className={styles.right}>
