@@ -832,6 +832,7 @@ export default function CMS({
                     position: absolute;
                     left: 35px;
                     bottom: 0px;
+                    z-index: 1;
                 }
                 .cp-editable-array-plus {
                     position: absolute;
