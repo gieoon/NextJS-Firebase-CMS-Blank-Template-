@@ -206,7 +206,7 @@ export default function WebpageEditor({
         const docRef = doc(db, 'CMS_WebsiteContent', projectName);
         return await getDoc(docRef)
             .then(doc => {
-                return doc.data();
+                return doc.data() || {};
             })
             .catch(err => console.error("Error loading website content: ", err))
     };
@@ -344,9 +344,10 @@ export default function WebpageEditor({
         }
     }
 
-    // Dynamically render object
+    // Dynamically render template objects to define cp-editable-array types.
+    // Defined and fed into <CMS /> as cmsTemplates.
     const renderObject = (o) => {
-        console.log('Rendering: ', o)
+//         console.log('Rendering: ', o)
         switch(o.type){
             case 'span':
             case 'h1':
@@ -426,6 +427,7 @@ export default function WebpageEditor({
                                     var tWebsiteContent = websiteContent;
                                     console.log(currentObj);
                                     var v = getResultFromSections(currentObj.sections);
+                                    if (!v) v = [];
                                     console.log("v: ", v);
                                     console.log(e.target);
                                     setLoading(true);
