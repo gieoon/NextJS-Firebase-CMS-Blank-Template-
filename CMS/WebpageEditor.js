@@ -7,7 +7,7 @@ import { STORAGE_ROOT } from './CMS_Freelance';
 import styles from './CMS.module.scss';
 import Loading from './Loading';
 import { websiteContent as defaultContent} from '../constants';
-import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { getStorage, ref, getDownloadURL, uploadBytes } from 'firebase/storage';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 
 // Edits webpages based on a list of id's.
