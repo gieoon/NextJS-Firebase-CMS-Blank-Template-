@@ -180,11 +180,17 @@ export const truncate = (str, maxLen) => {
 //         .replace(/[ ]/g, '-');
 // }
 
-export const swapIndexes = (originalIndex, newIndex) => {
-    const _currentField = currentField.slice();
-    // console.log("Swapping indexes: ", originalIndex, newIndex)
-    const originalIndexValue = _currentField[originalIndex];
-    _currentField[originalIndex] = _currentField[newIndex];
-    _currentField[newIndex] = originalIndexValue;
-    setCurrentField([..._currentField]);
+
+export const swapIndexes = (arr, oldIndex, newIndex) => {
+    
+    const _arr = arr.slice();
+
+    var oldVal = _arr[oldIndex];
+    var newVal = _arr[newIndex];
+
+    _arr[oldIndex] = newVal;
+    _arr[newIndex] = oldVal;
+    
+    return _arr;
+
 }
