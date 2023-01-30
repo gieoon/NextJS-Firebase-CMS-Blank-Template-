@@ -23,18 +23,14 @@ Greek Alphabet:
 */
 
 export const sendData = (obj, cb, retryCount) => {
-    console.log('SENDING EMAIL');
+//     console.log('SENDING EMAIL');
     if(!retryCount) retryCount = 0;
 
     var replyEmail = obj.filter(f => f.field === "Email address")[0].value;
     var replyName = obj.filter(f => f.field === "Full name" || f.field === "First name")[0].value;
-    var tripName = obj.filter(f => f.field === "Guided walk")[0];
     // console.log("tripName: ", tripName, ', replyName: ', replyName, ', obj: ', obj);
-    if (tripName) {
-        var subject = replyName + "'s enquiry about " + tripName;
-    } else {
-        var subject = APP_TITLE + " Enquiry";
-    }
+    
+    var subject = APP_TITLE + " Enquiry";
     // console.log("replyEmail: ", replyEmail);
     // console.log("replyName: ", replyName);
 
