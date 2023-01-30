@@ -5,7 +5,7 @@
 
 import React, {useState, useEffect, useCallback, useContext} from 'react';
 import { deleteObject, getDownloadURL, getStorage, ref, uploadBytes } from '@firebase/storage';
-import { Minus, Check, CheckSquare, Square, Plus, X, Edit, Trash2, Image, Headphones, File, Paperclip } from 'react-feather';
+import { Minus, Check, ChevronDown, ChevronUp, CheckSquare, Square, Plus, X, Edit, Trash2, Image, Headphones, File, Paperclip } from 'react-feather';
 import profile from './profile.png';
 // import blank_image from '../assets/blank_image.png';
 // import blank_audio from '../assets/blank_audio.png';
@@ -994,6 +994,9 @@ export default function CMS_Freelance({
                                         <div onClick={()=>{removeUploadedImg(newImage.url)}}>
                                             <X />
                                         </div>
+                                        { i > 0 ? <ChevronUp onClick={() => setNewImages(swapIndexes(newImages, i, i-1)) } /> : <></> }
+
+                                        { i < newImages.length - 1 ? <ChevronDown onClick={() => setNewImages(swapIndexes(newImages, i, i+1)) } /> : <></> }
                                     </div>
                                     ))
                                 }
