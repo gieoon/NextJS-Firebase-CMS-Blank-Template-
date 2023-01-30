@@ -529,7 +529,7 @@ export default function CMS_Freelance({
         // Replace all blob: url's in content with uploaded urls.
         for (var blobUrl of Object.keys(blobImgMap)) {
             console.log("Replacing blobURL in content: ", blobUrl, ' with: ', blobImgMap[blobUrl]);
-            d.content = d.content.replaceAll(blobUrl, blobImgMap[blobUrl]);
+            d.content = (d.content || "").replaceAll(blobUrl, blobImgMap[blobUrl]);
         }
         
         console.log('SAVING: ', d);
