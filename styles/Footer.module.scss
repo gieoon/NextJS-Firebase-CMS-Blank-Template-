@@ -1,15 +1,9 @@
-$primary-color: rgb(242,84,91);
-$secondary-color: rgb(242,84,91);
-$accent-color: rgb(240, 135, 140);
-$hover-color: rgb(240, 135, 140);
-$background-color: rgb(245,245,245);
-
 .Footer {
 
     // color: rgb(255,255,255,.75);
     padding: 2rem 1rem 1rem;
     position: relative;
-    background-color: $primary-color;
+    background-color: var(--primary);
 
     .inner {
         max-width: 80rem;
@@ -22,7 +16,7 @@ $background-color: rgb(245,245,245);
         position: absolute;
         inset: 0;
         z-index: -1; 
-        background-color: $background-color;
+        background-color: var(--background);
         overflow: hidden;
 
         // &:before {
@@ -68,7 +62,7 @@ $background-color: rgb(245,245,245);
         display: flex;
         justify-content: flex-start;
         align-items: center;
-        border-bottom: 2px solid $primary-color;
+        border-bottom: 2px solid var(--primary);
         width: fit-content;
         padding-bottom: .25rem;
         margin-bottom: 2rem;
@@ -89,7 +83,7 @@ $background-color: rgb(245,245,245);
             color: white;
 
             &:hover {
-                color: $primary-color;
+                color: var(--primary);
             }
         }
     }
