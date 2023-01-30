@@ -1,18 +1,10 @@
-$primary-color: rgb(242,84,91);
-$secondary-color: rgb(242,84,91);
-$accent-color: rgb(240, 135, 140);
-$background-color: rgb(245,245,245);
-$hover-color: rgb(240, 135, 140);
-$cta-color: #1e95a6;
-$hover-cta-color: #1b8695;
-
 .FloatingHeader {
     display: flex;
     justify-content: space-between;
     position: fixed;
     top: -50px;
     transition: top 250ms ease-in-out;
-    background-color: $primary-color; //rgba(245,245,245,.9);//$primary-color;
+    background-color: var(--primary); //rgba(245,245,245,.9);//$primary-color;
     // opacity: .85;
     left: 0;
     right: 0;
@@ -34,7 +26,7 @@ $hover-cta-color: #1b8695;
 
         div {
             margin-left: .35rem;
-            color: $background-color;
+            color: var(--background);
             font-weight: 600;
             font-size: .95rem;
 
@@ -64,7 +56,7 @@ $hover-cta-color: #1b8695;
 
             &:hover {
                 // opacity: 0.75; //$accent-color;
-                color: $accent-color;
+                color: var(--accent);
             }
         }
 
@@ -89,8 +81,8 @@ $hover-cta-color: #1b8695;
     .button {
         padding: .5rem 1rem;
         width: fit-content;
-        background-color: $primary-color;
-        border: 1px solid $accent-color;
+        background-color: var(--primary);
+        border: 1px solid var(--accent);
         -webkit-transition: background 125ms ease-out;  
         -moz-transition: background 125ms ease-out;  
         -o-transition: background 125ms ease-out;  
@@ -109,7 +101,7 @@ $hover-cta-color: #1b8695;
 
         &:hover {
             background-position: 100px;
-            background-color: $hover-color;
+            background-color: var(--hover);
 
             span {
                 color: white;
@@ -130,11 +122,11 @@ $hover-cta-color: #1b8695;
 
 
     .join_button {
-        background-color: $cta-color!important;
+        background-color: var(--cta)!important;
 
         &:hover {
             background-position: 100px;
-            background-color: $hover-cta-color!important;
+            background-color: var(--cta-hover)!important;
         }
     }
 }
