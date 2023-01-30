@@ -179,3 +179,12 @@ export const truncate = (str, maxLen) => {
 //     return str.toLowerCase()
 //         .replace(/[ ]/g, '-');
 // }
+
+export const swapIndexes = (originalIndex, newIndex) => {
+    const _currentField = currentField.slice();
+    // console.log("Swapping indexes: ", originalIndex, newIndex)
+    const originalIndexValue = _currentField[originalIndex];
+    _currentField[originalIndex] = _currentField[newIndex];
+    _currentField[newIndex] = originalIndexValue;
+    setCurrentField([..._currentField]);
+}
