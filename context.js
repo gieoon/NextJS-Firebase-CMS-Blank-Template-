@@ -13,7 +13,7 @@ function GlobalContextProvider(props) {
 
     useEffect(() => {
         
-        loadDynamicDataSnapshot(PROJECT_NAME, 'Trips', (t) => setTrips(t));
+//         loadDynamicDataSnapshot(PROJECT_NAME, 'Trips', (t) => setTrips(t));
         loadWebpageDataSnapshot(PROJECT_NAME, (w) => setWebsiteContent(w));
         
     }, []);
