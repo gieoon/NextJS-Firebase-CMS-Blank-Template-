@@ -229,7 +229,12 @@ const StandardDropdownMultipleField = ({currentFields, field}) => {
                 onChange={handleChange}
                 isClearable={false}
                 className="basic-multi-select"
-                classNamePrefix="select" />
+                classNamePrefix="select" 
+                styles={
+                    {
+                        menu: (styles) => ({ ...styles, zIndex: '999' }),
+                    }
+                }/>
 
             {/* Hidden input field to read the value of */}
             <input 
@@ -284,7 +289,12 @@ const StandardDropdownField = ({currentFields, field}) => {
                 options={field.options.map(o => { return {value: o, label: o} })} 
                 // onInputChange={handleChange}
                 onChange={handleChange}
-                isClearable={true} />
+                isClearable={true} 
+                styles={
+                    {
+                        menu: (styles) => ({ ...styles, zIndex: '999' }),
+                    }
+                }/>
 
             {/* Hidden input field to read the value of */}
             <input 
@@ -396,7 +406,12 @@ const CollectionsArrayField = ({currentFields, field}) => {
                 options={documents} 
                 // onInputChange={handleChange} // This retriggers a change to empty on onBlur
                 onChange={handleChange}
-                isClearable={true} />
+                isClearable={true} 
+                styles={
+                    {
+                        menu: (styles) => ({ ...styles, zIndex: '999' }),
+                    }
+                }/>
 
             {/* Hidden input field to read the value of */}
             <input 
@@ -494,7 +509,12 @@ const CollectionsDropdownMultipleField = ({currentFields, field}) => {
                 onChange={handleChange}
                 isClearable={false}
                 className="basic-multi-select"
-                classNamePrefix="select" />
+                classNamePrefix="select" 
+                styles={
+                    {
+                        menu: (styles) => ({ ...styles, zIndex: '999' }),
+                    }
+                }/>
 
             {/* Hidden input field to read the value of */}
             <input 
@@ -579,7 +599,12 @@ const CollectionsDropdownField = ({currentFields, field}) => {
                 value={currentField}
                 options={documents} 
                 onChange={handleChange}
-                isClearable={true} />
+                isClearable={true} 
+                styles={
+                    {
+                        menu: (styles) => ({ ...styles, zIndex: '999' }),
+                    }
+                }/>
 
             {/* Hidden input field to read the value of */}
             <input 
