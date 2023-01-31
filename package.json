@@ -30,8 +30,9 @@
     "react-quilljs": "^1.2.17",
     "react-rte": "^0.16.5",
     "react-select": "^5.4.0",
+    "react-youtube": "^10.1.0",
     "sitemap-to-array": "^6.0.0",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
   },
   "devDependencies": {
     "@types/node": "18.0.0",
