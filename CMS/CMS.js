@@ -88,6 +88,7 @@ export default function CMS({
         // if(!allowedOrigins.some(a => evt.origin.includes(a))) return;
         // !evt.origin.includes(allowedOrigins)) return;
         if(evt.data.actionType === 'startEdit'){
+            isStarted = true;
             highlightEditable();
             setCurrentData(evt.data.websiteContent);
             setInterval(() => {
