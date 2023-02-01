@@ -34,6 +34,8 @@ Quill.prototype.setHTML = (parentElement, html) => {
 const quills = {};
 // const original_innerHTMLs = {};
 
+var isStarted = false;
+
 export default function CMS({
     allowedOrigins,
     templates,
@@ -63,6 +65,20 @@ export default function CMS({
             //     e.stopPropagation();
             // }
         }
+        if (window.location.pathname === '/login') {
+            var clear = setInterval(() => {
+                if (!isStarted) {
+                    window.parent.postMessage({
+                        actionType: 'canWeStartNow?',
+                    }, '*');
+                }
+                else {
+                    console.log("started, so clearing now.")
+                    clearInterval(clear);
+                }
+
+            }, 1000);
+        }
     }, []);
 
     // Handles received messages from parent.
@@ -71,15 +87,12 @@ export default function CMS({
         // 'highlight'
         // if(!allowedOrigins.some(a => evt.origin.includes(a))) return;
         // !evt.origin.includes(allowedOrigins)) return;
-        if(evt.data.actionType === "initEditing"){
-            
+        if(evt.data.actionType === 'startEdit'){
+            highlightEditable();
+            setCurrentData(evt.data.websiteContent);
             setInterval(() => {
                 addEditButton();
             }, 1000);
-        }
-        else if(evt.data.actionType === 'startEdit'){
-            highlightEditable();
-            setCurrentData(evt.data.websiteContent);
         }
         else if(evt.data.actionType === 'updateElement'){
             // document.getElementById(currentFileId).classList.toggle('editing');
@@ -627,6 +640,7 @@ export default function CMS({
                 }
                 .cp-editable-btn-wrapper {
                     opacity: 1;
+                    visibility: visible!important; /* So that this is visible even if parent is not, on the rare case where hidden labels are used */
                     position: absolute;
                     /* box-shadow: 0px 0px 2px rgba(255,255,255,0.5); */
                     z-index: 1;
@@ -639,6 +653,7 @@ export default function CMS({
                     display: flex;
                     justify-content: space-evenly;
                     align-items: center;
+                    -webkit-text-fill-color: initial;
                     transition: all 100ms ease-in-out;
                 }
                 .cp-editable-btn {
@@ -713,6 +728,7 @@ export default function CMS({
                     bottom: 0;*/
                     z-index: 999;
                     position: relative;
+                    -webkit-text-fill-color: initial;
                     transform: translateY(-50%);
                 }
 
@@ -785,17 +801,17 @@ export default function CMS({
                 .cp-editable-img-btn {
                     position: relative;
                     border: 2px solid black;
-                    background-color: black;
-                    color: white;
+                    background-color: black!important;
+                    color: white!important;
                     white-space: nowrap;
                     padding: 2px 4px;
                     width: fit-content;
-                    font-size: 12px;
+                    font-size: 12px!important;
                     border-radius: 4px;
                     border: 1px solid rgba(150,150,150,0.5);
                     cursor: pointer;
                     line-height: normal;
-                    font-weight: 200;
+                    font-weight: 200!important;
                     margin-left: 5px;
                 }
                 .cp-editable-img-wrapper {
