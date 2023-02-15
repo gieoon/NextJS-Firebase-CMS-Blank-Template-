@@ -11,6 +11,7 @@ interface ImgProps {
     height?: number,
     layout?: any,
     s?: any,
+    isNatural?: boolean,
 }
 
 const CMS_IMG_Field: FC<ImgProps> = ({
@@ -23,13 +24,28 @@ const CMS_IMG_Field: FC<ImgProps> = ({
     height,
     layout,
     s,
+    isNatural,
 }) => {
     console.log("websiteContent[id]", websiteContent[id], placeholder);
 
     var imgSrc = websiteContent[id] ? websiteContent[id].url : placeholder || '/webbi logo.png';
     console.log("s", s);
-
-    var img = 
+    
+    if (!imgSrc || typeof(imgSrc) === 'object') {
+        imgSrc = '/webbi logo.png';
+    }
+    
+    var img;
+    if (fileObj && Object.keys(fileObj).length && fileObj.fileType && fileObj.fileType.includes('video')) {
+        img =  <video width={width} height={height} controls={false} autoPlay={true} muted={true} loop={true}
+            style={s}    
+            className={'cp-editable-img ' + c}
+            id={id}>
+            <source src={imgSrc} type="video/mp4" />
+        </video>;
+    } 
+    else {    
+        img = 
         // <img src={websiteContent[id] ? websiteContent[id].url : placeholder} id={id} className={"cp-editable-img " + c} alt={alt} />
         <Image src={imgSrc} 
             style={s}
@@ -41,7 +57,17 @@ const CMS_IMG_Field: FC<ImgProps> = ({
             layout={layout}
             blurDataURL={imgSrc}
             placeholder="blur" />
+    }
     
+   if (isNatural) {
+        return <img 
+            src={websiteContent[id] 
+                ? websiteContent[id].url : placeholder} 
+            id={id} 
+            className={"cp-editable-img " + c} 
+            alt={alt} />
+    }
+        
     if (layout === 'fill') {
         return (
             <div> 
