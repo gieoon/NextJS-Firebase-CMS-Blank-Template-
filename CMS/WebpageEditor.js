@@ -266,6 +266,7 @@ export default function WebpageEditor({
             var out = {
                 url: obj.url,
                 path: obj.path,
+                fileType: currentFile.fileType,
                 id: currentFile.id,
                 name: currentFile.name,
                 identifier: currentFileId,
