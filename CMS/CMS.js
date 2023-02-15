@@ -440,7 +440,10 @@ export default function CMS({
 
     const createImageUpload = (e) => {
         var el = e.target;
-        var parentElement = el.parentElement.previousElementSibling;//closest('.cp-editable-img');
+        
+        var parentElement = el.closest('.cp-editable-img-wrapper').previousElementSibling;//closest('.cp-editable-img');
+        
+//         var parentElement = el.parentElement.previousElementSibling;//closest('.cp-editable-img');
         console.log("variables: ", el, parentElement, parentElement.id);
         parentElement.classList.toggle('editing');
         // setCurrentFile(imageId);
@@ -613,7 +616,8 @@ export default function CMS({
             <style>
                 .cp-editable {
                     border: 2px solid black;
-                    position: relative;;
+                    position: relative;
+                    z-index: 2; /* cp-editable-img-wrapper is z-index: 1, so this needs to be above it to edit text that's on top of an image */
                 }
                 .cp-editable.editing {
                     pointer-events: all!important;
@@ -642,15 +646,24 @@ export default function CMS({
                 .cp-editable-btn-wrapper {
                     opacity: 1;
                     visibility: visible!important; /* So that this is visible even if parent is not, on the rare case where hidden labels are used */
-                    position: absolute;
+                    /* position: absolute; */
+                    position: relative;
                     /* box-shadow: 0px 0px 2px rgba(255,255,255,0.5); */
                     z-index: 1;
                     /* right: 0; */
                     right: 0;
                     pointer-events: all;
                     /* top: 5px; */
-                    /* top: -15px; */
+                    /* top: -15px;
                     bottom: 0px;
+                    */
+                   right: 0;
+                   left: 0;
+                   bottom: 0;
+                   top: 0;
+                   margin: auto;
+                   width: fit-content;
+                   
                     display: flex;
                     justify-content: space-evenly;
                     align-items: center;
@@ -667,23 +680,23 @@ export default function CMS({
                     color: white;
                     padding: 2px 6px;
                     /* width: 50px; */
-                    font-size: 12px!important;
-                    font-weight: 200!important;
+                    font-size: 15px!important;
+                    font-weight: 600!important;
                     border-radius: 4px;
-                    border: 1px solid rgba(150,150,150,0.5);
+                    /* border: 1px solid rgba(150,150,150,0.5); */
                     cursor: pointer;
                     line-height: normal;
                     margin-left: 5px;
                     text-align: center;
                 }
-                .cp-editable-btn:hover,
+                /*.cp-editable-btn:hover,
                 .cp-editable-save-btn:hover,
                 .cp-editable-cancel-btn:hover,
                 .cp-editable-img-cancel-btn:hover,
                 .cp-editable-img-save-btn:hover,
                 .cp-editable-img-btn:hover {
                     background-color: rgb(50,50,50);
-                }
+                }*/
                 .cp-editable.editing .cp-editable-btn,
                 .cp-editable-img.editing .cp-editable-img-btn {
                     display: none;
@@ -723,14 +736,25 @@ export default function CMS({
 
                 .editables-wrapper {
                     /* position: absolute;
-                    top: 15px; */
-                    /*right: 0;
-                    position: absolute;
+                    top: 15px;
+                    right: 0;
+                    position: relative;
                     bottom: 0;*/
                     z-index: 999;
-                    position: relative;
+                    /*position: absolute;
+                    inset: 0;
+                    text-align: left;
+                    */
+                    margin: auto;
+                    width: fit-content;
                     -webkit-text-fill-color: initial;
-                    transform: translateY(-50%);
+                    /* transform: translateY(-50%); */
+                }
+                
+                .editables-wrapper:hover {
+                    background-color: black;
+                    border: 1px solid gray;
+                    cursor: pointer;
                 }
 
                 /* Defaults */
@@ -820,10 +844,17 @@ export default function CMS({
                     z-index: 1;
                     right: 0;
                     bottom: 5px;
+                    inset: 0;
                     display: flex;
                     justify-content: space-evenly;
                     align-items: center;
                     transition: all 100ms ease-in-out;
+                }
+                
+                .cp-editable-img-wrapper:hover {
+                    background-color: black;
+                    cursor: pointer;
+                    border: 1px solid gray;
                 }
 
                 .cp-editable-array-minus-wrapper {
