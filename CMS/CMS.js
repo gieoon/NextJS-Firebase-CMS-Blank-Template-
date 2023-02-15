@@ -211,7 +211,7 @@ export default function CMS({
                 // d3.onclick = (e) => {
                 //     cancelImageClicked(e);
                 // }
-                d.onclick = (e) => {
+                dw.onclick = (e) => { // Originally d.onclick() ..., now moved to parent.
                     e.preventDefault();
                     e.stopPropagation();
                     createImageUpload(e);
