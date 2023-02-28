@@ -20,7 +20,7 @@ import WebpageEditor from './WebpageEditor.js';
 import FieldsDisplay from './FieldsDisplay';
 import Head from 'next/head';
 import { swapIndexes } from './helpers';
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup } from '@firebase/auth';
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signInWithEmailAndPassword } from '@firebase/auth';
 import { collection, deleteDoc, doc, getDoc, updateDoc, getDocs, getFirestore, onSnapshot, orderBy, query, setDoc, serverTimestamp } from 'firebase/firestore';
 // import { GlobalContext } from '../../context/GlobalContextProvider';
 // import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
@@ -99,6 +99,8 @@ export default function CMS_Freelance({
     const [editType, setEditType] = useState(0);
 
     const [storage, setStorage] = useState();
+    
+    const [loginMode, setLoginMode] = useState(1);
 
     useEffect(()=>{
         
@@ -175,6 +177,18 @@ export default function CMS_Freelance({
             // var credential = error.credential;
             console.error("Error signing in: ", err);
           });
+    }
+    
+    const LogInWithEmailPassword = (email, password) => {
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, email, password)
+            .then(userCredential => {
+                // Signed In
+            })
+            .catch(err => {
+                console.log('Error signing in with email password: ', err);
+                alert("That Email/password combination was not found");
+            });
     }
 
     useEffect(()=>{
@@ -810,11 +824,35 @@ export default function CMS_Freelance({
                 <div className={styles.overlay}>
                     <div className={styles.content}>
                         <h2>Login to update your website</h2>
-                        <p>Please use your approved email address</p>
-                        {/* <p>Update your website content</p> */}
-                        <div className={styles.login} onClick={()=>{
-                            LogIn()}}>
-                            <span>Login</span>
+                        { loginMode === 0  
+                            ? <>
+                                <p>Please use your approved email address</p>
+                                {/* <p>Update your website content</p> */}
+                                <div className={styles.login} onClick={()=>{
+                                    LogIn()
+                                }}>
+                                    <span>Login</span>
+                                </div>
+                            </>
+                            : <>
+                                <p>Please use your email/password combination</p>
+                                <input placeholder="email" id="login-email" type="email" name="email" />
+                                <input placeholder="password" id="login-password" type="password" name="password" />
+                                <div className={styles.login} onClick={() => {
+                                    var email = document.querySelector('#login-email').value;
+                                    var password = document.querySelector('#login-password').value;
+                                    if (!email || !password) alert("Please enter an email and password");
+                                    LogInWithEmailPassword(email, password); 
+                                }}>
+                                    <span>Login</span>
+                                </div>
+                            </>
+                        }
+
+                        <div className={styles.login_mode} onClick={() => {
+                            setLoginMode(1 - loginMode);
+                        }}>
+                            { loginMode === 0 ? 'Swap to email/password' : 'Swap to gmail' }
                         </div>
                     </div>
                 </div>
