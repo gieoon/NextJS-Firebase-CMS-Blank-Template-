@@ -78,6 +78,23 @@ $border: 1px solid $light-border-color;
                     color: white;
                 }
             }
+            
+            input {
+                padding: .5rem;
+                display: block;
+                margin: 1rem auto;
+                border-radius: 4px;
+                font-size: 16px;
+                border: 1px solid black;
+                width: 100%;
+            }
+
+            .login_mode {
+                margin-top: 1rem;
+                text-decoration: underline;
+                font-size: 12px;
+                cursor: pointer;
+            }
         }
     }
 
