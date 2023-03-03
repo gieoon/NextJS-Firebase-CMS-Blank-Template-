@@ -27,6 +27,8 @@ const CMS_IMG_Field: FC<ImgProps> = ({
     isNatural,
 }) => {
     console.log("websiteContent[id]", websiteContent[id], placeholder);
+    
+    var fileObj = websiteContent[id];
 
     var imgSrc = websiteContent[id] ? websiteContent[id].url : placeholder || '/webbi logo.png';
     console.log("s", s);
