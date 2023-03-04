@@ -70,6 +70,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <Head>
         <title>Do I Really Need Nature?</title>
         <meta name="description" content="Do I really need nature?" />
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <link rel="icon" href={APP_ICON} />
     </Head>
 
