@@ -194,3 +194,10 @@ export const swapIndexes = (arr, oldIndex, newIndex) => {
     return _arr;
 
 }
+
+export const fromFirestoreDate = (obj) => {
+    if (!obj.seconds) {
+        return obj;
+    }
+    return new Date(obj.seconds * 1000);
+}
