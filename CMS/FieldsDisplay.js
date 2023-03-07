@@ -8,7 +8,7 @@ import { collection, getFirestore } from 'firebase/firestore';
 import { loadDynamicData, loadFromPath, stripHTML } from './helpers';
 import { uuidv4 } from '@firebase/util';
 import { PROJECT_NAME } from '../constants';
-import { Remove } from '@mui/icons-material';
+import Remove from '@mui/icons-material/Remove';
 import TextEditor from './TextEditor';
 import RichTextEditor, {createEmptyValue, EditorValue} from 'react-rte';
 
