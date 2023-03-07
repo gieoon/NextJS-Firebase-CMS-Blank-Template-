@@ -195,9 +195,20 @@ export const swapIndexes = (arr, oldIndex, newIndex) => {
 
 }
 
+function getMonthName(monthNumber) {
+    const date = new Date();
+    date.setMonth(monthNumber - 1);
+  
+    return date.toLocaleString('en-US', { month: 'long' });
+}
+
 export const fromFirestoreDate = (obj) => {
+    // console.log("obj", obj)
     if (!obj.seconds) {
         return obj;
     }
-    return new Date(obj.seconds * 1000);
+    var d = new Date(obj.seconds * 1000);
+    return `${d.getDate()} ${getMonthName(d.getMonth())} ${d.getFullYear()}` 
 }
+
+
