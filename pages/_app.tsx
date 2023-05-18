@@ -1,16 +1,18 @@
-import '../styles/globals.css'
+import '../styles/globals.css';
+import '../styles/hamburger.css';
 import '../CMS/cms_globals.css';
 import type { AppProps } from 'next/app'
 import React, { createContext, useEffect, useState } from 'react'
 import FloatingHeader from '../components/FloatingHeader';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import FullScreenMenu from '../components/FullScreenMenu';
 import GlobalContextProvider from '../context';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import '../firebase/firebase';
-import { APP_ICON } from '../constants';
+import { APP_ICON, cmsTemplates } from '../constants';
 
 const CMS_Freelance = dynamic(
   () => import('../CMS/CMS_Freelance'),
@@ -83,7 +85,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       : <>
 
         <CMS allowedOrigins={["ineednature.co.nz","localhost:3000"]}
-            templates={[]/*cmsTemplates*/} />
+            templates={cmsTemplates} />
     
         <Header />
 
@@ -92,6 +94,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Footer />
 
         <FloatingHeader isVisible={isFloatingHeaderVisible} />
+
+        <FullScreenMenu />
       </>
     }
   </GlobalContextProvider>

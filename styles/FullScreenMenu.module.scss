@@ -1,0 +1,74 @@
+.FullScreenMenu {
+    position: fixed;
+    inset: 0;
+    height: 100vh;
+    background-color: rgb(245,245,245);//rgb(35,35,35);
+    color: rgb(35,35,35);//white;   
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    z-index: 9999;
+    transition: opacity 250ms ease-in-out;
+    // opacity: 0;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &:after {
+        content: "";
+        background-image: linear-gradient(136deg,rgba(132,174,241,.867) 8.4%,rgba(38,238,159,.47) 30.67%,rgba(21,188,223,.333) 70.04%,hsla(0,0%,100%,0) 85%);
+        //linear-gradient(to bottom right, #5fd5b6, #4bfe85);
+        position: absolute;
+        inset: 0;
+        // filter: blur(10px);
+        opacity: .35;
+        z-index: -1;
+    }
+
+    &.visible {
+        // opacity: 1;
+        // pointer-events: all;
+        transition: opacity 25ms ease-in-out;
+    }
+
+    .close {
+        position: absolute;
+        top: 10px;
+        right: 1.75rem;
+        cursor: pointer;
+
+        svg {
+            width: 55px;
+            height: 55px;
+        }
+    }
+
+    .menu_item {
+        
+        position: relative;
+        width: 100%;
+        height: 84px;
+        line-height: 84px;
+        color: black;
+        text-transform: uppercase;
+        font-size: 3.1em;
+        font-weight: 800;
+        letter-spacing: -0.05em;
+        will-change: transform, opacity;
+        overflow: hidden;
+          
+        > div {
+            padding-top: 4px;
+            padding-bottom: 4px;
+            padding-right: 0.05em;
+            overflow: hidden;
+            cursor: pointer;
+
+            &:hover {
+                background-color: black;
+                color: white;
+            }
+        }
+    }
+}

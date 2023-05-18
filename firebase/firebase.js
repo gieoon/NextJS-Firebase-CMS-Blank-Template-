@@ -10,7 +10,7 @@ const firebaseConfig = {
     // Paste in firestore configuration here.
     projectId: 'abc'
 }
-
+  
 var app;
 
 if (getApps().length === 0) {

@@ -11,12 +11,10 @@ import BasicModal from './Dialog';
 export default function FloatingHeader({
     isVisible,
 }) {
-    const {websiteContent, currentTrip} = useContext(GlobalContext);
+    const {websiteContent} = useContext(GlobalContext);
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [showTripsDropdown, setShowTripsDropdown] = useState(false);
-    
-    if (!currentTrip.title) return <></>;
 
     return (
         <div className={styles.FloatingHeader + " " + (isVisible ? styles.visible : "")}>
@@ -34,7 +32,7 @@ export default function FloatingHeader({
                 </Link> */}
 
                 <div className={styles.title}>
-                    {stripHTML(currentTrip.title)}
+                    {stripHTML('Test content')}
                 </div>
 
                 {/* <div>

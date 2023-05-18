@@ -10,7 +10,7 @@ export default function Header() {
 
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    const {websiteContent} = useContext(GlobalContext);
+    const {websiteContent, isHamburgerActive, setIsHamburgerActive} = useContext(GlobalContext);
 
     return (
         <div className={styles.Header}>
@@ -25,11 +25,6 @@ export default function Header() {
                         width: '135px',
                         marginLeft: '-10px'
                     }} />
-                    <div>
-                        {/* I Need<br/>  */}
-                        {/* <p>I Need Nature</p> */}
-                        {/* <p>N Ξ Ξ D <span style={{margin:'10px'}} /> N Λ T V R Ξ</p> */}
-                    </div>
                 </div>
             </Link>
 
@@ -46,11 +41,17 @@ export default function Header() {
                 <Link href="/activities">
                 <span className="link-primary">Activities</span>
                 </Link> */}
-                <div onClick={() => {
+                {/* <div onClick={() => {
                     ANALYTICS_logEvent('I want to learn more pressed', {});
                     setIsDialogOpen(true);
                 }}>
                     <span className="link-primary">I want to learn more</span>
+                </div> */}
+                <div onClick={() => { setIsHamburgerActive(true) }}
+                    className={"hamburger hamburger--slider " + (isHamburgerActive ? 'is-active' : '')}>
+                    <div className="hamburger-box">
+                        <div className="hamburger-inner"></div>
+                    </div>
                 </div>
             </div>
 

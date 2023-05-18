@@ -7,35 +7,23 @@ import {APP_ICON, PROJECT_NAME, SITE_URL, TWITTER_HANDLE} from '../constants';
 import { collectionNameToUrl, getFieldName, loadDynamicData, loadDynamicDataSnapshot, loadFromPath, loadWebpageData, loadWebpageDataSnapshot } from '../CMS/helpers'
 import Image from 'next/image';
 import SearchBar from '../components/Searchbar'
-import { createBrotliCompress } from 'zlib'
 import StandardButton from '../components/shared/StandardButton'
 import BasicModal from '../components/Dialog'
-import Trip from '../models/Trip'
+import CMS_String_Field from '../CMS/shared/CMS_String_Field'
+import DynamicList from '../models/DynamicList'
 
 export default function IndexPage({
     websiteContent,
-    activities,
-    destinations,
-    trips,
-    languages,
-    reviews,
+    dynamicList,
 }){
     const _websiteContent = JSON.parse(websiteContent);
-    const _activities = JSON.parse(activities);
-    const _trips = JSON.parse(trips);
-    const _destinations = JSON.parse(destinations);
-    const _languages = JSON.parse(languages);
-    const _reviews = JSON.parse(reviews);
+    const _dynamicList = JSON.parse(dynamicList);
 
     const [isShowingPopup, setIsShowingPopup] = useState(false);
   
     const {
         setWebsiteContent,
-        setActivities,
-        setTrips,
-        setDestinations,
-        setLanguages,
-        setReviews,
+        setDynamicList,
     } = useContext(GlobalContext);
     
     // console.log("_trips: ", trips);
@@ -43,29 +31,25 @@ export default function IndexPage({
     useEffect(() => {
 
         setWebsiteContent(_websiteContent);
-        setActivities(_activities);
-        setTrips(_trips);
-        setDestinations(_destinations);
-        setLanguages(_languages);
-        setReviews(_reviews);
+        setDynamicList(_dynamicList);
 
-        // loadDynamicDataSnapshot(PROJECT_NAME, 'Activities', (a) => setActivities(a));
-        // loadDynamicDataSnapshot(PROJECT_NAME, 'Trips', (t) => setTrips(t));
-        // loadDynamicDataSnapshot(PROJECT_NAME, 'Destinations', (d) => setDestinations(d));
-        // loadDynamicDataSnapshot(PROJECT_NAME, 'Languages', (l) => setLanguages(l));
+        // loadDynamicDataSnapshot(PROJECT_NAME, 'DynamicListCollectionName', (d) => setDynamicList(d));
         // loadWebpageDataSnapshot(PROJECT_NAME, (w) => setWebsiteContent(w));
         
     }, []);
 
+    const metaTitle = 'Hello World';
+    const metaDescription = 'Hello World, but with a longer description.'
+
     return (
         <div className={styles.HomePage}>
             <Head>
-                <title>Tours around New Zealand, time to travel &amp; explore </title>
-                <meta name="description" content="Make your next destination New Zealand. Explore the nature, go for amazing hikes, and immerse yourself in an authentic Kiwi experience. Choose a customized trip, join local activities, have an amazing time!" />
+                <title>{metaTitle}</title>
+                <meta name="description" content={metaDescription} />
                 <link rel="icon" href={APP_ICON} />
 
-                <meta property="og:title" content={"Plan your trip to New Zealand | I Need Nature | Travel &amp; explore destinations"} />
-                <meta property="og:description" content={"Make your next destination New Zealand. Explore the nature, go for amazing hikes, and immerse yourself in an authentic Kiwi experience. Choose a customized trip, join local activities, have an amazing time!"} />
+                <meta property="og:title" content={metaTitle} />
+                <meta property="og:description" content={metaDescription} />
                 <meta property="og:url" content={SITE_URL} />
                 <meta property="og:image" content={SITE_URL + '/thumbnail_1600.png'} />
 
@@ -77,37 +61,38 @@ export default function IndexPage({
 
             <div className={styles.header_row}>
 
-                <img src="/images/camping-on-mountain.svg" className={styles.img2} />
-                <img src="/images/bus-driver-with-mustache.svg" className={styles.img3} />
-
                 <div className={styles.inner}>
                     {/* <Image src="/images/travel_header.avif" width="250" height="150"/> */}
                     <div>
-                        <h2>Find a tour in New Zealand</h2>
+                        <CMS_String_Field 
+                            id="homePageTitleField" // Unique Id
+                            placeholder="CMS Content Title Field (Unedited)"
+                            c={styles.special_class} // Use a special modularized className
+                        />
                         <SearchBar />
                     </div>
-                    {/* <img src="/images/travel3_transparent.png" /> */}
                     
-                    <img src="/images/mountain-trekking.svg" />
-                    {/* <object type="image/svg+xml" data="/images/onboarding.svg">svg-animation</object> */}
+                    {/* NextJS doesn't like raw images, but you can disable the eslint checker and make this work */}
+                    <img src="/images/mountain-trekking.svg" /> 
 
                 </div>
 
                 <div className={styles.bottom_content}>
                     <div className={styles.inner}>
-                        <p>The best of New Zealand in one place</p>
+                        <CMS_String_Field 
+                            id="homePageField2" // Unique Id (again)
+                            placeholder="Another CMS Content Field (Unedited)"
+                            c={styles.special_class2}
+                        />
                     </div>
                 </div>
                 
             </div>
             <main className={styles.main}>
-                {/* <h2>Trips</h2> */}
-
-                {/* Add in different sections. */}
                 
                 <div className="tiles">
-                    { _trips.map((trip, i) => (
-                        <div key={'tripcard-'+i} />
+                    { _dynamicList.map((data, i) => (
+                        <div key={'dynamiclist-'+i} />
                     ))
 
                     }
@@ -119,9 +104,10 @@ export default function IndexPage({
             <div className={styles.want_more}>
                 <div className={styles.inner}>
 
-                    <h2>Want to see more?</h2>
 
-                    <p>We try to keep our information up to date but let us know if you would like to recommend another.</p>
+                    <h2>Raw headers like this will work</h2>
+
+                    <p>But they can't be edited from the <a href='/login'>/login</a> page.</p>
 
                     <BasicModal 
                         websiteContent={websiteContent}
@@ -146,7 +132,7 @@ export default function IndexPage({
     )
 }
 
-
+// Below formatting is NextJS stuff. Learn about Next.JS directly to get involved.
 
 // export async function getStaticPaths() {
     
@@ -174,29 +160,16 @@ export default function IndexPage({
 export async function getStaticProps(context) {
 
     const websiteContent = await loadWebpageData(PROJECT_NAME);
-    var activities = await loadDynamicData(PROJECT_NAME, 'Activities');
-    var destinations = await loadDynamicData(PROJECT_NAME, 'Destinations');
-    var trips = await loadDynamicData(PROJECT_NAME, 'Trips');
-    var languages = await loadDynamicData(PROJECT_NAME, 'Languages');
-    var reviews = await loadDynamicData(PROJECT_NAME, 'Reviews');
+    var dynamicList = await loadDynamicData(PROJECT_NAME, 'DynamicListCollectionName');
 
-    const memoizedDestinations = {};
-    const memoizedActivities = {};
-    const memoizedItineraryDays = {};
-    const memoizedReviews = {};
-    const memoizedSupportedLanguages = {};
-    // for (var d of destinations) {
-    //     memoizedDestinations[d.path] = 
-    // }
+    // Can use memoized values if data loading is shared.
+    const memoizedData = {};
 
-    for (var i in trips) {
+    // Initialize each model class to transform the data.
+    for (var i in dynamicList) {
         // For now, memoized data is initialized as empty.
-        trips[i] = await Trip.init(trips[i],
-            memoizedItineraryDays,
-            memoizedSupportedLanguages,
-            memoizedActivities,
-            memoizedDestinations,
-            memoizedReviews
+        dynamicList[i] = await DynamicList.init(dynamicList[i],
+            memoizedData,
         );
 
         // console.log("PARENT memoizedItineraryDays: ", Object.keys(memoizedItineraryDays).length);
@@ -204,11 +177,7 @@ export async function getStaticProps(context) {
 
     return {
         props: {
-            activities: JSON.stringify(activities),
-            destinations: JSON.stringify(destinations),
-            trips: JSON.stringify(trips),
-            languages: JSON.stringify(languages),
-            reviews: JSON.stringify(reviews),
+            dynamicList: JSON.stringify(dynamicList),
             websiteContent: JSON.stringify(websiteContent),
         },
         revalidate: 1440,

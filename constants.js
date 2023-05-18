@@ -1,6 +1,6 @@
 import { addDoc, collection, getFirestore } from "@firebase/firestore";
 
-export const PROJECT_NAME = '';
+export const PROJECT_NAME = 'test';
 export const APP_TITLE = "";
 export const APP_ICON = ''; // favicon_white.png
 export const SITE_URL = '';
@@ -10,17 +10,15 @@ export const TWITTER_HANDLE = '@myaccount';
 export const EMAIL_API_SERVER = '';
 export const SUPPORT_EMAIL = '...@gmail.com';
 
-/*
 
-
-N Ξ Ξ D N Λ T V R Ξ
-
-N Σ Σ D  N Λ T V R Σ 
-
-Greek Alphabet:
-Α α, Β β, Γ γ, Δ δ, Ε ε, Ζ ζ, Η η, Θ θ, Ι ι, Κ κ, Λ λ, Μ μ, Ν ν, Ξ ξ, Ο ο, Π π, Ρ ρ, Σ σ/ς, Τ τ, Υ υ, Φ φ, Χ χ, Ψ ψ, Ω ω.
-
-*/
+export const cmsTemplates = {
+    // uniqueArray: [
+    //     {
+    //       type: "span",
+    //       value: "title"
+    //     },
+    // ]
+}
 
 export const sendData = (obj, cb, retryCount) => {
 //     console.log('SENDING EMAIL');

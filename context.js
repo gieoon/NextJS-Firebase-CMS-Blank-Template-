@@ -6,14 +6,19 @@ export const GlobalContext = createContext();
 
 function GlobalContextProvider(props) {
     
+    // The static Page Content with structure hardcoded via React.
     const [websiteContent, setWebsiteContent] = useState({});
-    const [trips, setTrips] = useState([]);
+    const [isHamburgerActive, setIsHamburgerActive] = useState(false);
+    
+    // Dynamic content. 
+    const [dynamicList, setDynamicList] = useState([]);
 
     // Listen to changes in the DB as well, after static pre-rendering.
 
     useEffect(() => {
         
-//         loadDynamicDataSnapshot(PROJECT_NAME, 'Trips', (t) => setTrips(t));
+        // Load dynamic content here if it needs to be refreshed.
+//         loadDynamicDataSnapshot(PROJECT_NAME, 'DynamicListCollectionName', (t) => setDynamicList(t));
         loadWebpageDataSnapshot(PROJECT_NAME, (w) => setWebsiteContent(w));
         
     }, []);
@@ -22,8 +27,10 @@ function GlobalContextProvider(props) {
         <GlobalContext.Provider value={{
             websiteContent: websiteContent,
             setWebsiteContent: setWebsiteContent,
-            trips: trips,
-            setTrips: setTrips,
+            isHamburgerActive: isHamburgerActive,
+            setIsHamburgerActive: setIsHamburgerActive,
+            dynamicList: dynamicList,
+            setDynamicList: setDynamicList,
         }}>
             {props.children}
         </GlobalContext.Provider>
