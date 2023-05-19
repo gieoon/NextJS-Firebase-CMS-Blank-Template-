@@ -5,6 +5,7 @@ import { useContext, useState } from 'react';
 import BasicModal from './Dialog';
 import { GlobalContext } from '../context';
 import { ANALYTICS_logEvent } from '../firebase/analytics';
+import { APP_TITLE } from '../constants';
 
 export default function Header() {
 
@@ -25,6 +26,9 @@ export default function Header() {
                         width: '135px',
                         marginLeft: '-10px'
                     }} />
+                    <div>
+                        <h6>{APP_TITLE}</h6>
+                    </div>
                 </div>
             </Link>
 
