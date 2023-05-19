@@ -1,10 +1,3 @@
-$primary-color: rgb(242,84,91);
-$secondary-color: rgb(242,84,91);
-$accent-color: rgb(240, 135, 140);
-$hover-color: rgb(240, 135, 140);
-$cta-color: #1e95a6;
-$hover-cta-color: #1b8695;
-
 .StandardButton {
     
     margin: 1.5rem 1rem;
@@ -15,7 +8,7 @@ $hover-cta-color: #1b8695;
         border-radius: .5rem; //.5rem
         width: fit-content;
 
-        background-color: $primary-color;
+        background-color: var(--primary);
         font-weight: 700;
         color: white;
         font-size: 1.25rem;
@@ -24,7 +17,7 @@ $hover-cta-color: #1b8695;
         box-shadow: inset 1px -24px 2px -20px rgb(0 0 0 / 20%);
 
         &:hover {
-            background-color: $accent-color;
+            background-color: var(--cta-hover);
         }
 
         &.is_max_width {
@@ -32,10 +25,10 @@ $hover-cta-color: #1b8695;
         }
 
         &.is_cta {
-            background-color: $cta-color;
+            background-color: var(--cta);
 
             &:hover {
-                background-color: $hover-cta-color;
+                background-color: var(--cta-hover);
             }
         }
 
