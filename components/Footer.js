@@ -20,9 +20,6 @@ export default function Footer () {
 
             <div className={styles.inner}>
 
-                {/* <p>Tours, events, and activities in New Zealand</p> */}
-                <p>Individual and group tours in New Zealand</p>
-
                 {/* <div className={styles.contact_details}> */}
                     {/* <Image src="/help_icon.jpg" 
                         width="35"
