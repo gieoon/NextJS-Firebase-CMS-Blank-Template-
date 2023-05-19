@@ -12,7 +12,9 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import '../firebase/firebase';
-import { APP_ICON, cmsTemplates } from '../constants';
+import { APP_ICON, cmsTemplates, PROJECT_NAME } from '../constants';
+import PageTransition from '../components/PageTransition';
+import Link from 'next/link';
 
 const CMS_Freelance = dynamic(
   () => import('../CMS/CMS_Freelance'),
@@ -67,38 +69,45 @@ function MyApp({ Component, pageProps }: AppProps) {
     return unsubscribe();
   })
 
-  return <GlobalContextProvider>
+  const defaultMetaTitle = "Change your website's title";
+  const defaultMetaDescription = "This is your website's description";
+
+  return <PageTransition>
+
+      <GlobalContextProvider>
+      
+      <Head>
+          <title>{defaultMetaTitle}</title>
+          <meta name="description" content={defaultMetaDescription} />
+          <meta name="viewport" content="width=device-width, initial-scale=1"/>
+          <link rel="icon" href={APP_ICON} />
+      </Head>
+
+      { router.pathname === '/login'
+        ? <div>
+
+          <CMS_Freelance projectName={PROJECT_NAME} />
+
+        </div>
+        : <>
+
+          <CMS allowedOrigins={["ineednature.co.nz", "example.co.nz", "localhost:3000"]}
+              templates={cmsTemplates} />
+      
+          <Header />
+
+          <Component {...pageProps}  />
+
+          <Footer />
+
+          <FloatingHeader isVisible={isFloatingHeaderVisible} />
+
+          <FullScreenMenu />
+        </>
+      }
+    </GlobalContextProvider>
     
-    <Head>
-        <title>Do I Really Need Nature?</title>
-        <meta name="description" content="Do I really need nature?" />
-        <meta name="viewport" content="width=device-width, initial-scale=1"/>
-        <link rel="icon" href={APP_ICON} />
-    </Head>
-
-    { router.pathname === '/login'
-      ? <div>
-
-        <CMS_Freelance projectName="i_need_nature" />
-
-      </div>
-      : <>
-
-        <CMS allowedOrigins={["ineednature.co.nz","localhost:3000"]}
-            templates={cmsTemplates} />
-    
-        <Header />
-
-        <Component {...pageProps}  />
-
-        <Footer />
-
-        <FloatingHeader isVisible={isFloatingHeaderVisible} />
-
-        <FullScreenMenu />
-      </>
-    }
-  </GlobalContextProvider>
+  </PageTransition>
 }
 
 export default MyApp
