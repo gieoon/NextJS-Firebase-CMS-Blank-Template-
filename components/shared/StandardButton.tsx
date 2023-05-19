@@ -13,16 +13,20 @@ export default function StandardButton({
     // console.log("Booking for trip: ", _trip)
 
     return (
-        <div className={styles.StandardButton} style={{
-            marginLeft: leftAlign ? '0': ''
-        }}>
-            <div className={styles.inner + " " + (isCta ? styles.is_cta : '') + " " + (isMaxWidth ? styles.is_max_width : '')} 
+        <div className={styles.StandardButton + " " + (leftAlign ? styles.margin_left : '')} 
+        // style={{
+        //     marginLeft: leftAlign ? '0': ''
+        // }}
+        >
+            <div className={styles.inner + " " + (isCta ? styles.is_cta : '') + " " + (isMaxWidth ? styles.is_max_width : '') + " " + (leftAlign ? styles.margin_left : '')} 
                 onClick={() => {
                     ANALYTICS_logEvent(text + ' pressed', {});
                     cb();
-                }} style={{
-                    marginLeft: leftAlign ? '0' : ''
-                }}>
+                }} 
+                // style={{
+                //     marginLeft: leftAlign ? '0' : ''
+                // }}
+                >
                 {/* <span>Make a booking</span> */}
                 <span>{text}
                     <KeyboardArrowRight sx={{width: '32px', height: '32px'}} />
