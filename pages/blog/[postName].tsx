@@ -66,23 +66,10 @@ export async function getStaticProps(context) {
     var foundBlogs = blogPosts.filter((b) => collectionNameToUrl(b.title) === blogPostName);
     var blogPost: BlogPost;
 
-    const memoizedDestinations = {};
-    const memoizedSupportedLanguages = {};
-    const memoizedActivities = {};
-    const memoizedTrips = {};
-    const memoizedItineraryDays = {};
-    const memoizedReviews = {};
-
     if (foundBlogs.length > 0) {
         
         blogPost = await BlogPost.init(
             await loadFromPath(foundBlogs[0].path),
-            memoizedActivities,
-            memoizedDestinations,
-            memoizedItineraryDays,
-            memoizedReviews,
-            memoizedSupportedLanguages,
-            memoizedTrips
         );
     } else {
         return {
