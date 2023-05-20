@@ -1,5 +1,6 @@
 import { ref } from "@firebase/storage";
 import { query, getFirestore, onSnapshot, doc, collection, getDoc, getDocs, where, orderBy, setDoc } from "firebase/firestore";
+import { API_URL } from '../constants';
 
 export const loadWebpageDataSnapshot = async (projectName, cb) => {
     const db = getFirestore();
