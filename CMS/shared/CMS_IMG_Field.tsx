@@ -1,5 +1,6 @@
 import Image from 'next/image';
-import {FC} from 'react';
+import {FC, useContext } from 'react';
+import { GlobalContext } from '../../context';
 
 interface ImgProps {
     id: string,
@@ -27,6 +28,8 @@ const CMS_IMG_Field: FC<ImgProps> = ({
     isNatural,
 }) => {
     console.log("websiteContent[id]", websiteContent[id], placeholder);
+    
+    const {websiteContent} = useContext(GlobalContext);
     
     var fileObj = websiteContent[id];
 
