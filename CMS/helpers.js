@@ -76,6 +76,28 @@ export const loadDynamicData = async (projectName, collectionName) => {
     
 }
 
+export const loadSpreadsheetData = async () => {
+    // try {
+        return await fetch(API_URL + '/api/loadSpreadsheet').then(res => {
+            if (res.status === 404 || res.status === 500) {
+                return [];
+            }
+            return res.json();
+        });
+    // } catch(err) {
+    //     console.log("Caught error loading spreadsheet future meetings: ", err)
+    //     return [];
+    // }
+}
+
+
+export const createDateFromDDMMYYYY = (d) => {
+    if (!d) return '';
+    var dd = d.toString().split('/');
+    if (dd[2].length <= 2) dd[2] = '20' + dd[2];
+    return new Date(`${dd[2]} ${dd[1]} ${dd[0]}`);
+}
+
 // Load from doc.ref.path string "CMS/xyz/abc" 
 export const loadFromPath = async (path) => {
     if (!path || !path.length || path === 'undefined') return {}; // Instead of undefined.
