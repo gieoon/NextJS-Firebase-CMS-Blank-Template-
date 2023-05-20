@@ -31,8 +31,11 @@ const AboutPage: NextPage = () => {
 
       <main className={styles.main}>
         
-        <CMS_String_Field id="aboutPageTitle" websiteContent={websiteContent} />
-        <CMS_HTML_Field id="aboutPageDesc" websiteContent={websiteContent} />
+        <CMS_String_Field id="aboutPageTitle" 
+          placeholder=""
+          c={''}/>
+        <CMS_HTML_Field id="aboutPageDesc" c="" 
+          placeholder={''} />
         
         
       </main>
