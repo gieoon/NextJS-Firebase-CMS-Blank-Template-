@@ -131,6 +131,11 @@ For now, this is done manually. Basically, Firestore rules need to be created to
 Google Analytics is used. Anytime a button press should trigger an event, use `ANALYTICS_logEvent(eventName: string, [options: any])` to create the event.
 Pageviews can be created in the same way with `ANALYTICS_screenView(pageName: string)`
 
+## Sitemap
+
+`next-sitemap` is included by default. This automatically generates a sitemap after `npm run build`.
+Make sure to go into `/next-sitemap.config.js` and update the `siteURL` to match your domain. You can then include this fiel in Google Search Console.
+
 ## Helpful methods
 
 The helper class has a variety of useful methods. 
