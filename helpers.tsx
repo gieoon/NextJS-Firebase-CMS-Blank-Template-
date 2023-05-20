@@ -1,10 +1,28 @@
-import { collectionNameToUrl } from "./CMS/helpers";
+import { collectionNameToUrl, createDateFromDDMMYYYY } from "./CMS/helpers";
 
 export function truncate(str: string, n: number){
     if (!str) return '';
     // return (str.length > n) ? str.substr(0, n-1) + '&hellip;' : str;
     return (str.length > n) ? str.substr(0, n-1) + "..." : str;
 };
+
+export function handleEvents(events: any[]): any[] {
+    // Filter out past meetings.
+    var meetingDates = events.map((m: any[]) => m[0]);
+    
+    meetingDates = meetingDates.map((m: string) => createDateFromDDMMYYYY(m));
+
+    meetingDates.forEach((m: Date, i: number) => {
+        events[i][0] = m;
+    })
+    // console.log("futureMeetings 0: ", futureMeetings);
+    for (var i in events) {
+        if (isNaN(events[i][0]) || !events[i][0].toString().length) events[i][0] = new Date('9999 09 09') 
+    };
+    var d = new Date(); d.setDate(d.getDate()-1);
+    events = events.filter((f: any[]) => f[0] >= d);
+    return events;
+}
 
 export function dateDisplay(date: Date): string {
     
