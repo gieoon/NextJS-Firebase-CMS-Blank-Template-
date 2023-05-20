@@ -1,12 +1,14 @@
-import { FC, ReactElement } from "react"
+import { FC, ReactElement, useContext } from "react"
+import { GlobalContext } from "../../context";
 
 interface HTMLProps {
     id: string,
     c?: string,
-    websiteContent: any,
     placeholder: string, //ReactElement,
 }
-const CMS_HTML_Field: FC<HTMLProps> = ({id, websiteContent, placeholder, c}) => {
+const CMS_HTML_Field: FC<HTMLProps> = ({id, placeholder, c}) => {
+
+    const {websiteContent} = useContext(GlobalContext);
 
     return <div id={id} className={"cp-editable " + c} dangerouslySetInnerHTML={{ 
         __html: websiteContent[id] ? websiteContent[id] : placeholder
