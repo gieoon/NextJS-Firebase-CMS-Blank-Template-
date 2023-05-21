@@ -4,7 +4,6 @@ import { GlobalContext } from '../../context';
 
 interface ImgProps {
     id: string,
-    websiteContent: any,
     alt: string,
     placeholder: any,
     c?: string,
@@ -17,7 +16,6 @@ interface ImgProps {
 
 const CMS_IMG_Field: FC<ImgProps> = ({
     id,
-    websiteContent,
     alt,
     placeholder,
     c,
