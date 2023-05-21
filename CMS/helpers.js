@@ -225,6 +225,14 @@ function getMonthName(monthNumber) {
     return date.toLocaleString('en-US', { month: 'long' });
 }
 
+
+export const getDayOfWeek = (dayNumber) => {
+    
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  
+    return days[dayNumber];
+}
+
 export const fromFirestoreDate = (obj) => {
     // console.log("obj", obj)
     if (!obj.seconds) {
