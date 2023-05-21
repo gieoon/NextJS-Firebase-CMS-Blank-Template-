@@ -160,6 +160,7 @@ I have setup an automatic weekly and monthly backup system for all content via G
 
 ## TODO
 
+1. Edit cp-editable-array content
 1. Add in images describing each section
 1. Create `/admin` screen to edit the CMS dataflow and authentication easily via NodeJS firebase-admin API.
 1. Add Live URL demo link.
