@@ -9,6 +9,7 @@ export const TWITTER_HANDLE = '@myaccount';
 // Template ID is set in SendGrid and accepts substitution variables
 export const EMAIL_API_SERVER = '';
 export const SUPPORT_EMAIL = '...@gmail.com';
+export const API_URL = '/'
 
 
 export const cmsTemplates = {
