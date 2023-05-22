@@ -25,7 +25,6 @@ const CMS_IMG_Field: FC<ImgProps> = ({
     s,
     isNatural,
 }) => {
-    console.log("websiteContent[id]", websiteContent[id], placeholder);
     
     const {websiteContent} = useContext(GlobalContext);
     
