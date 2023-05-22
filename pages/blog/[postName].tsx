@@ -17,10 +17,11 @@ export default function BlogPostName ({
         <div>
             <h2 className="mini-title">{stripHTML(_blogPost.title)}</h2>
 
-            <div className={styles.content} dangerouslySetInnerHTML={{
+            { /* <div className={styles.content} dangerouslySetInnerHTML={{
                 __html: _blogPost.content,
-            }} />
-
+            }} /> *. }
+            
+            { BlogPost.renderContent(_blogPost.content, []) }
 
             <RelatedBlogPosts blogPosts={_otherBlogPosts} />
         </div>
