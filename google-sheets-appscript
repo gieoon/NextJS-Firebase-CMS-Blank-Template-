@@ -1,0 +1,40 @@
+/**
+ * The event handler triggered when editing the spreadsheet.
+ * @param {Event} e The onEdit event.
+ * @see https://developers.google.com/apps-script/guides/triggers#onedite
+ */
+ 
+ /*
+  Add this script to the spreadsheet as an 'AppScript', it calls the website's webhook which triggers a rerender of content.
+ */
+ 
+function spreadsheetEdited(e) {
+  // Set a comment on the edited cell to indicate when it was changed.
+  // const range = e.range;
+  // range.setNote('Last modified: ' + new Date());
+
+  Logger.log(JSON.stringify(e));
+  
+  // const range = e.range;
+  // range.setNote('Last modified: ' + new Date());
+
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  // Note that the JavaScript index is 0, but this logs 1
+  // var sheet = ss.getSheets()[0];
+
+  var sheet = ss.getActiveSheet();
+  // ... because spreadsheets are 1-indexed
+  Logger.log('index: ' + sheet.getIndex());
+  Logger.log('name: ' + sheet.getName().replace(/[ ]/g,''));
+
+  var response = UrlFetchApp.fetch("https://rotary-nelson-website.vercel.app/api/revalidate?spreadsheetName=" + sheet.getName().replace(/[ ]/g,''));
+  Logger.log(response.getContentText());
+
+  
+}
+
+// var sheet = SpreadsheetApp.getActive();
+// ScriptApp.newTrigger("spreadsheetEdited")
+//   .forSpreadsheet(sheet)
+//   .onChange()
+//   .create();
