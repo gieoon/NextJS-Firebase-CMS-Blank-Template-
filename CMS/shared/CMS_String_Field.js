@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { GlobalContext } from "../../context"
+import { stripHTML } from "../helpers";
 
 export default function CMS_String_Field({
     id, // Unique ID (Firestore document object key)
@@ -13,7 +14,7 @@ export default function CMS_String_Field({
         id={id} 
         className={"cp-editable " + c}>{
             websiteContent[id] 
-                ? websiteContent[id] 
+                ? stripHTML(websiteContent[id]) 
                 : placeholder
         }</span>
 }
