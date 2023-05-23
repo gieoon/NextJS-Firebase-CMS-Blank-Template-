@@ -21,6 +21,21 @@ function GlobalContextProvider(props) {
 //         loadDynamicDataSnapshot(PROJECT_NAME, 'DynamicListCollectionName', (t) => setDynamicList(t));
         loadWebpageDataSnapshot(PROJECT_NAME, (w) => setWebsiteContent(w));
         
+        // Loading spreadsheet data that has been saved into CMS via Appscript + Firebase Service Account.
+        // ./saveToFirestore.appscript
+//         loadSpreadsheetDataFIRESTORE('events').then(d => {
+            
+//             d = d.map(dd => {
+//                 return {
+//                     topic: dd.topic,
+//                     speaker: dd.speaker,
+//                     date: new Date(dd.date.seconds * 1000),
+//                 }
+//             })
+//             // console.log('spreadsheet data firestore', d)
+//             setEvents(d);
+//         })
+        
     }, []);
 
     return (
