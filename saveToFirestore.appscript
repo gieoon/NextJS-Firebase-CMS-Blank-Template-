@@ -15,6 +15,7 @@
 // Source code for library.
 // https://github.com/grahamearley/FirestoreGoogleAppsScript/blob/main/FirestoreWrite.ts
 
+// Google Sheets -> Tools -> Appscript -> Libraries -> 1VUSl4b1r1eoNcRWotZM3e87ygkxvXltOgyDZhixqncz9lQ3MjfT1iKFw
 // Make sure the service account has firebase admin privileges rather than spreadsheet privileges. Otherwise, you will get 'missing permissions' error.
 
 function getFirestore() {
