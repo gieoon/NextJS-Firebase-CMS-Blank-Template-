@@ -11,7 +11,7 @@ import StandardButton from '../components/shared/StandardButton'
 import BasicModal from '../components/Dialog'
 import CMS_String_Field from '../CMS/shared/CMS_String_Field'
 import DynamicList from '../models/DynamicList'
-import { handleSpreadsheetData } from '../helpers';
+// import { handleSpreadsheetData } from '../helpers';
 
 export default function IndexPage({
     websiteContent,
@@ -164,9 +164,9 @@ export async function getStaticProps(context) {
     var dynamicList = await loadDynamicData(PROJECT_NAME, 'DynamicListCollectionName');
             
     // Loaded from Google Spreadsheet via NextJS NodeJS /api.
-    var spreadsheetList = await loadSpreadsheetData();
+    // var spreadsheetList = await loadSpreadsheetData();
             
-    spreadsheetList = handleSpreadsheetData(spreadsheetList);
+    // spreadsheetList = handleSpreadsheetData(spreadsheetList);
 
     // Can use memoized values if data loading is shared.
     const memoizedData = {};
