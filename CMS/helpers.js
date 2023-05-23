@@ -91,6 +91,13 @@ export const loadSpreadsheetData = async () => {
     // }
 }
 
+// Via spreadsheet that saves into CMS document via Appscript + Firebase service account.
+export const loadSpreadsheetDataFIRESTORE = async (docName) => {
+    const db = getFirestore();
+    const docRef = doc(db, 'CMS', PROJECT_NAME, 'SPREADSHEET_DATA', docName);
+    const docSnapshot = await getDoc(docRef);
+    return docSnapshot.data().data;
+}
 
 export const createDateFromDDMMYYYY = (d) => {
     if (!d) return '';
