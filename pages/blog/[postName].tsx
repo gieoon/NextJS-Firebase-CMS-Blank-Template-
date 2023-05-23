@@ -19,7 +19,7 @@ export default function BlogPostName ({
 
             { /* <div className={styles.content} dangerouslySetInnerHTML={{
                 __html: _blogPost.content,
-            }} /> *. }
+            }} /> */ }
             
             { BlogPost.renderContent(_blogPost.content, []) }
 
