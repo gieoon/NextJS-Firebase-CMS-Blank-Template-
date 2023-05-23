@@ -1,0 +1,133 @@
+/**
+ * The event handler triggered when editing the spreadsheet.
+ * @param {Event} e The onEdit event.
+ * @see https://developers.google.com/apps-script/guides/triggers#onedite
+ */
+ 
+ /** 
+  Add this script to the spreadsheet as an 'AppScript'.
+  It deletes a collection, then writes the array of spreadsheet data into a collection as a single document.
+ */
+
+// Helpful video
+// https://www.youtube.com/watch?v=Iysr12PPdxs
+
+// Source code for library.
+// https://github.com/grahamearley/FirestoreGoogleAppsScript/blob/main/FirestoreWrite.ts
+
+// Make sure the service account has firebase admin privileges rather than spreadsheet privileges. Otherwise, you will get 'missing permissions' error.
+
+function getFirestore() {
+  // ServiceAccount client-email
+  var email = "<service account client_email>";
+  // ServiceAccount project_id
+  var projectId = "<service account project_id>";
+  // Paste ServiceAccount private_key
+  var key = "<service account private_key>";
+  return FirestoreApp.getFirestore(email, key, projectId);
+
+
+}
+
+// The script to add
+function saveToFirebase() {
+  const firestore = getFirestore();
+  // firestore.createDocument('CMS/nelson_historical_society/SPREADSHEET_DATA/events', {helloworld: true});
+  // var hi = firestore.getDocuments('CMS/nelson_historical_society');
+  // Logger.log(hi);
+  
+  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+  var sheetName = 'Events';
+  var sheet = spreadsheet.getSheetByName(sheetName);
+
+  var lastRow = sheet.getLastRow();
+  var lastColumn = sheet.getLastColumn();
+
+  // var dataStartRow = 2;
+  var sheetRange = sheet.getRange(3, 1, lastRow, lastColumn);
+
+  var sheetData = sheetRange.getValues();
+  Logger.log(sheetData);
+
+  let out = [];
+  for (var i=0; i < sheetData.length; i++) {
+    if (sheetData[i][0] !== '') {
+      var data = {};
+      data.date = sheetData[i][0];
+      data.topic = sheetData[i][1];
+      data.speaker = sheetData[i][2];
+      Logger.log(data);
+      out.push(data);
+    }
+  }
+  // firestore.createDocument('CMS/nelson_historical_society/SPREADSHEET_EVENTS/spreadsheetEvents', out);
+  try{
+    firestore.createDocument('CMS/nelson_historical_society/SPREADSHEET_DATA/events', {data: out} );
+    
+  } catch {
+    Logger.log("Caught error trying to create document, now updating");
+    firestore.updateDocument('CMS/nelson_historical_society/SPREADSHEET_DATA/events', {data: out} );
+  }
+}
+
+/**
+// Clientside via authenticated API, requires readable permissions.
+function writeDataToFirebase() {
+      var ss = SpreadsheetApp.openById("1LbnrFOXh0ZgAh9Mt-9uLxt_U32TUMz4mj_O1lk4jVIk");
+      var sheet = ss.getSheets()[0];
+      var data = sheet.getDataRange().getValues();
+      var dataToImport = {};
+      for(var i = 1; i < data.length; i++) {
+        var firstName = data[i][0];
+        var lastName = data[i][1];
+        dataToImport[firstName + '-' + lastName] = {
+          firstName:firstName,
+          lastName:lastName,
+          emailAddress:data[i][2],
+          semester:data[i][4],
+          department:data[i][5],
+        };
+      }
+      var firebaseUrl = "https://example-app.firebaseio.com/";
+      var secret = "secret-key";
+      var base = FirebaseApp.getDatabaseByUrl(firebaseUrl, secret);
+      base.setData("", dataToImport);
+    }
+ 
+function spreadsheetEdited(e) {
+  // Set a comment on the edited cell to indicate when it was changed.
+  // const range = e.range;
+  // range.setNote('Last modified: ' + new Date());
+
+  Logger.log(JSON.stringify(e));
+  
+  // const range = e.range;
+  // range.setNote('Last modified: ' + new Date());
+
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  // Note that the JavaScript index is 0, but this logs 1
+  // var sheet = ss.getSheets()[0];
+
+  var sheet = ss.getActiveSheet();
+  // ... because spreadsheets are 1-indexed
+  Logger.log('index: ' + sheet.getIndex());
+  Logger.log('name: ' + sheet.getName().replace(/[ ]/g,''));
+
+  var data = {
+    'name': 'Bob Smith',
+    'age': 35,
+    'pets': ['fido', 'fluffy']
+  };
+  var options = {
+    'method' : 'post',
+    'contentType': 'application/json',
+    // Convert the JavaScript object to a JSON string.
+    'payload' : JSON.stringify(data)
+  };
+
+  var response = UrlFetchApp.fetch("https://freelancing-nelson-historical-society.vercel.app/api/revalidate", options);
+  Logger.log(response.getContentText());
+
+  
+}
+**/
