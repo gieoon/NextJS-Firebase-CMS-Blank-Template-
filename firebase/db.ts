@@ -1,5 +1,5 @@
 import { getFirestore, addDoc, collection, getDoc, getDocs, deleteDoc, doc, query, where, orderBy, OrderByDirection, updateDoc, QueryConstraint } from "firebase/firestore";
-<!-- import { SearchResult } from "../models/SearchResult"; -->
+// import { SearchResult } from "../models/SearchResult";
 
 /*
 export const FIRESTORE_search = async (
