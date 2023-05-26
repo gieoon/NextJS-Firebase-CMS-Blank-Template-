@@ -1,6 +1,24 @@
 import { ref } from "@firebase/storage";
 import { query, getFirestore, onSnapshot, doc, collection, getDoc, getDocs, where, orderBy, setDoc } from "firebase/firestore";
-import { API_URL } from '../constants';
+import { TWITTER_HANDLE, APP_ICON, API_URL } from '../constants';
+import Head from 'next/head';
+
+export const getMetaData = (metaTitle, metaDescription, siteUrl, thumbnailUrl) => {
+    return <Head>
+        <title>{metaTitle}</title>
+        <meta name="description" content={metaDescription} />
+        <link rel="icon" href={APP_ICON} />
+
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:url" content={siteUrl} />
+        <meta property="og:image" content={thumbnailUrl} />
+
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content={TWITTER_HANDLE} />
+        <meta name="twitter:creator" content={TWITTER_HANDLE} />
+    </Head>;
+}
 
 export const loadWebpageDataSnapshot = async (projectName, cb) => {
     const db = getFirestore();
