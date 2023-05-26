@@ -4,13 +4,13 @@ import { useContext, useEffect, useState } from 'react'
 import styles from '../styles/HomePage.module.scss'
 import { GlobalContext } from '../context'
 import {APP_ICON, PROJECT_NAME, SITE_URL, TWITTER_HANDLE} from '../constants';
-import { collectionNameToUrl, getFieldName, loadDynamicData, loadDynamicDataSnapshot, loadFromPath, loadWebpageData, loadWebpageDataSnapshot } from '../CMS/helpers'
+import { collectionNameToUrl, getMetadata, getFieldName, loadDynamicData, loadDynamicDataSnapshot, loadFromPath, loadWebpageData, loadWebpageDataSnapshot } from '../CMS/helpers'
 import Image from 'next/image';
 import SearchBar from '../components/Searchbar'
 import StandardButton from '../components/shared/StandardButton'
 import BasicModal from '../components/Dialog'
 import CMS_String_Field from '../CMS/shared/CMS_String_Field'
-import DynamicList from '../models/DynamicList'
+import DynamicList from '../models/DynamicList';
 // import { handleSpreadsheetData } from '../helpers';
 
 export default function IndexPage({
@@ -44,20 +44,8 @@ export default function IndexPage({
 
     return (
         <div className={styles.HomePage}>
-            <Head>
-                <title>{metaTitle}</title>
-                <meta name="description" content={metaDescription} />
-                <link rel="icon" href={APP_ICON} />
-
-                <meta property="og:title" content={metaTitle} />
-                <meta property="og:description" content={metaDescription} />
-                <meta property="og:url" content={SITE_URL} />
-                <meta property="og:image" content={SITE_URL + '/thumbnail_1600.png'} />
-
-                <meta name="twitter:card" content="summary" />
-                <meta name="twitter:site" content={TWITTER_HANDLE} />
-                <meta name="twitter:creator" content={TWITTER_HANDLE} />
-            </Head>
+            
+            { getMetadata(metaTitle, metaDescription, SITE_URL, SITE_URL + '/thumbnail_1600.png') }
             
 
             <div className={styles.header_row}>
