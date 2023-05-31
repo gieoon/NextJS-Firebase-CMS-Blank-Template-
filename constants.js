@@ -32,6 +32,11 @@ export const sendData = (obj, cb, retryCount) => {
     var subject = APP_TITLE + " Enquiry";
     // console.log("replyEmail: ", replyEmail);
     // console.log("replyName: ", replyName);
+    
+    if (!EMAIL_API_SERVER.length) {
+        alert("Email server not set");
+        return;
+    }
 
     fetch(EMAIL_API_SERVER,{
         method: 'POST',
