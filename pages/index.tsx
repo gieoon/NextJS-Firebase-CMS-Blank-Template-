@@ -4,7 +4,7 @@ import { useContext, useEffect, useState } from 'react'
 import styles from '../styles/HomePage.module.scss'
 import { GlobalContext } from '../context'
 import {APP_ICON, PROJECT_NAME, SITE_URL, TWITTER_HANDLE} from '../constants';
-import { collectionNameToUrl, getMetadata, getFieldName, loadDynamicData, loadDynamicDataSnapshot, loadFromPath, loadWebpageData, loadWebpageDataSnapshot } from '../CMS/helpers'
+import { collectionNameToUrl, getMetaData, getFieldName, loadDynamicData, loadDynamicDataSnapshot, loadFromPath, loadWebpageData, loadWebpageDataSnapshot } from '../CMS/helpers'
 import Image from 'next/image';
 import SearchBar from '../components/Searchbar'
 import StandardButton from '../components/shared/StandardButton'
@@ -45,7 +45,7 @@ export default function IndexPage({
     return (
         <div className={styles.HomePage}>
             
-            { getMetadata(metaTitle, metaDescription, SITE_URL, SITE_URL + '/thumbnail_1600.png') }
+            { getMetaData(metaTitle, metaDescription, SITE_URL + '/', SITE_URL + '/thumbnail_1600.png') }
             
 
             <div className={styles.header_row}>
