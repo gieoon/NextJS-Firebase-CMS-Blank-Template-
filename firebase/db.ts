@@ -1,5 +1,12 @@
-import { getFirestore, addDoc, collection, getDoc, getDocs, deleteDoc, doc, query, where, orderBy, OrderByDirection, updateDoc, QueryConstraint } from "firebase/firestore";
+import { getFirestore, addDoc, getCountFromServer, collection, getDoc, getDocs, deleteDoc, doc, query, where, orderBy, OrderByDirection, updateDoc, QueryConstraint } from "firebase/firestore";
 // import { SearchResult } from "../models/SearchResult";
+
+export const FIRESTORE_getMessageCount = async (): Promise<number> => {
+    const db = getFirestore();
+
+    const snapshot = await getCountFromServer(collection(db, ""));
+    return snapshot.data().count;
+}
 
 /*
 export const FIRESTORE_search = async (
