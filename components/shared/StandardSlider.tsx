@@ -1,6 +1,6 @@
 import Slider from "@mui/material/Slider";
 import { FC, ReactElement } from "react";
-import styles from '../styles/StandardSlider.module.scss';
+import styles from '../../styles/StandardSlider.module.scss';
 
 interface StandardSliderProps {
     label: ReactElement,
