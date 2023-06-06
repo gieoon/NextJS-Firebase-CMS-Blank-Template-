@@ -2,7 +2,7 @@ import { FC, ReactElement } from "react";
 import { ActionMeta, InputActionMeta } from "react-select";
 // import Select from "react-select/dist/declarations/src/Select";
 import Select from 'react-select';
-import styles from '../styles/StandardSelect.module.scss';
+import styles from '../../styles/StandardSelect.module.scss';
 
 interface StandardSelectProps {
     label: ReactElement,
