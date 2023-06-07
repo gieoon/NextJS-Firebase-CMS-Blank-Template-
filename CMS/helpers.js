@@ -12,7 +12,7 @@ export const getMetaData = (metaTitle, metaDescription, siteUrl, thumbnailUrl) =
         <meta property="og:title" content={metaTitle} />
         <meta property="og:description" content={metaDescription} />
         <meta property="og:url" content={siteUrl} />
-        <meta property="og:image" content={thumbnailUrl} />
+        <meta property="og:image" content={thumbnailUrl || '/thumbnail_1600.png'} />
 
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:site" content={TWITTER_HANDLE} />
