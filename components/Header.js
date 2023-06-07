@@ -16,7 +16,7 @@ export default function Header() {
     return (
         <div className={styles.Header}>
             
-            <Link href="/" className={styles.home_link}>
+            <Link href="/" className={styles.home_link} scroll={false}>
                 <a>
                     <div className={styles.logo_container}>
                         {/* <Image src="/logo_transparent.png" 
@@ -41,10 +41,10 @@ export default function Header() {
                 setIsOpen={setIsDialogOpen} />
 
             <div className={styles.links_container}>
-                {/* <Link href="/destinations">
+                {/* <Link href="/destinations" scroll={false}>
                     <span className="link-primary">Destinations</span>
                 </Link>
-                <Link href="/activities">
+                <Link href="/activities" scroll={false}>
                 <span className="link-primary">Activities</span>
                 </Link> */}
                 {/* <div onClick={() => {
