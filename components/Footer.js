@@ -33,13 +33,13 @@ export default function Footer () {
                 {/* </div> */}
 
                 <div className={styles.links_container}>
-                    {/* <Link href="/destinations">
+                    {/* <Link href="/destinations" scroll={false}>
                         <span className="link-white">Destinations</span>
                     </Link>
-                    <Link href="/activities">
+                    <Link href="/activities" scroll={false}>
                         <span className="link-white">Activities</span>
                     </Link> */}
-                    {/* <Link href="/destinations/new-zealand">
+                    {/* <Link href="/destinations/new-zealand" scroll={false}>
                         New Zealand
                     </Link> */}
                 </div>
