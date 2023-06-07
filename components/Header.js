@@ -17,19 +17,21 @@ export default function Header() {
         <div className={styles.Header}>
             
             <Link href="/" className={styles.home_link}>
-                <div className={styles.logo_container}>
-                    {/* <Image src="/logo_transparent.png" 
-                        width="165" 
-                        height="61"
-                    /> */}
-                    <img src="/logo_transparent.png" style={{
-                        width: '135px',
-                        marginLeft: '-10px'
-                    }} />
-                    <div>
-                        <h6>{APP_TITLE}</h6>
+                <a>
+                    <div className={styles.logo_container}>
+                        {/* <Image src="/logo_transparent.png" 
+                            width="165" 
+                            height="61"
+                        /> */}
+                        <img src="/logo_transparent.png" style={{
+                            width: '135px',
+                            marginLeft: '-10px'
+                        }} />
+                        <div>
+                            <h6>{APP_TITLE}</h6>
+                        </div>
                     </div>
-                </div>
+                </a>
             </Link>
 
             <BasicModal 
