@@ -3,12 +3,15 @@
 import styles from '../styles/PageTransition.module.scss';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter } from 'next/router';
+// https://github.com/vercel/next.js/issues/17464#issuecomment-1537262075
+import PageTransition, { useAsPathWithoutHash } from '@madeinhaus/nextjs-page-transition';
 
-export default function PageTransition({
+export default function PageTransitionParent ({
     children
 }) {
     
-    const { asPath } = useRouter();
+//     const { asPath } = useRouter();
+    const key = useAsPathWithoutHash();
 
     const d = 0.5;
 
@@ -36,15 +39,18 @@ export default function PageTransition({
                 initial={false}
                 mode="wait"
                 >
-                    <motion.div
-                        key={asPath}
-                        variants={variants}
-                        animate="in"
-                        initial="out"
-                        exit="out"
-                    >
-                        {children}
-                    </motion.div>
+                    <PageTransition>
+                        <motion.div
+                            id="transitions-wrapper"
+                            key={key}//asPath}
+                            variants={variants}
+                            animate="in"
+                            initial="out"
+                            exit="out"
+                        >
+                            {children}
+                        </motion.div>
+                    </PageTransition>
             </AnimatePresence>
         </div>
     )
