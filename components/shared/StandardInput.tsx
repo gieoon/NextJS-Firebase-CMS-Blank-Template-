@@ -1,7 +1,8 @@
 import { FC, useState } from "react";
-import styles from '../../styles/StandardInput.module.scss';
+import styles from '../styles/StandardInput.module.scss';
 
 interface StandardInputProps {
+    id?: string,
     label: string,
     type?: string,
     name?: string,
@@ -13,6 +14,7 @@ interface StandardInputProps {
 }
 
 const StandardInput: FC<StandardInputProps> = ({
+    id,
     label,
     type,
     name,
@@ -28,6 +30,7 @@ const StandardInput: FC<StandardInputProps> = ({
             <label className={isFocused ? styles.focused : ''}>{label}</label>
             { isLong 
                 ? <textarea 
+                    id={id || ''}
                     defaultValue={defaultText}
                     name={name || undefined}
                     // placeholder={placeholder}
@@ -36,6 +39,7 @@ const StandardInput: FC<StandardInputProps> = ({
                     }}
                 />
                 : <input 
+                    id={id || ''}
                     // onFocus={(el) => el.target.classList.toggle(styles.focused)}
                     onFocus={() => setIsFocused(true)}
                     onBlur={(e) => {
