@@ -13,7 +13,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import '../firebase/firebase';
 import { APP_ICON, cmsTemplates, PROJECT_NAME } from '../constants';
-import PageTransition from '../components/PageTransition';
+import PageTransitionParent from '../components/PageTransitionParent';
 import Link from 'next/link';
 
 const CMS_Freelance = dynamic(
@@ -72,7 +72,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const defaultMetaTitle = "Change your website's title";
   const defaultMetaDescription = "This is your website's description";
 
-  return <PageTransition>
+  return <PageTransitionParent>
 
       <GlobalContextProvider>
       
@@ -107,7 +107,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       }
     </GlobalContextProvider>
     
-  </PageTransition>
+  </PageTransitionParent>
 }
 
 export default MyApp
