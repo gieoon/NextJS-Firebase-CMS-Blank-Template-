@@ -1,13 +1,15 @@
 import { FC, ReactElement } from "react";
-import styles from '../../styles/StandardOnOff.module.scss';
+import styles from '../styles/StandardOnOff.module.scss';
 
 interface StandardOnOffProps {
+    id?: string,
     label: ReactElement,
     isForcedOn?: boolean,
     onChange?: Function,
 }
 
 const StandardOnOff: FC<StandardOnOffProps> = ({
+    id,
     label,
     isForcedOn,
     onChange,
@@ -16,6 +18,7 @@ const StandardOnOff: FC<StandardOnOffProps> = ({
         <div className={styles.StandardOnOff}>
             {label}
             <input 
+                id={id || ''}
                 type='checkbox' 
                 defaultChecked={isForcedOn} 
                 disabled={isForcedOn}
