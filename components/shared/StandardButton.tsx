@@ -1,37 +1,53 @@
-import { ArrowRight, ArrowRightAlt, KeyboardArrowRight } from '@mui/icons-material';
-import { ArrowRightCircle } from 'react-feather';
-import { ANALYTICS_logEvent } from '../../firebase/analytics';
-import styles from '../../styles/shared/StandardButton.module.scss';
+import ArrowForward from '@mui/icons-material/ArrowForward';
+import ArrowRight from "@mui/icons-material/ArrowRight";
+import Link from "next/link";
+import { FC, ReactElement } from "react";
+import Loading from '../CMS/Loading';
+import styles from '../styles/StandardButton.module.scss';
 
-export default function StandardButton({
+interface StandardButtonProps {
+    text: string,
+    slug?: string,
+    cb?: Function,
+    isCta?: boolean,
+    disabled?: boolean,
+    isLoading?: boolean,
+}
+
+const StandardButton: FC<StandardButtonProps> = ({
     text,
     cb,
+    slug,
     isCta,
-    isMaxWidth,
-    leftAlign,
-}) {
-    // console.log("Booking for trip: ", _trip)
+    disabled,
+    isLoading,
+}) => {
+    const button = <div className={styles.StandardButton + " " + (disabled ? styles.disabled : '')} onClick={() => {
+        if (cb) cb();
+    }}>
+        <div className={styles.background} />
+        <p>{text} 
+            { isCta ? <ArrowForward /> : <></> }
+        </p>
 
-    return (
-        <div className={styles.StandardButton + " " + (leftAlign ? styles.margin_left : '')} 
-        // style={{
-        //     marginLeft: leftAlign ? '0': ''
-        // }}
-        >
-            <div className={styles.inner + " " + (isCta ? styles.is_cta : '') + " " + (isMaxWidth ? styles.is_max_width : '') + " " + (leftAlign ? styles.margin_left : '')} 
-                onClick={() => {
-                    ANALYTICS_logEvent(text + ' pressed', {});
-                    cb();
-                }} 
-                // style={{
-                //     marginLeft: leftAlign ? '0' : ''
-                // }}
-                >
-                {/* <span>Make a booking</span> */}
-                <span>{text}
-                    <KeyboardArrowRight sx={{width: '32px', height: '32px'}} />
-                </span>
-            </div>
-        </div>
-    );
+        <Loading 
+            loading={isLoading}
+            forceAbsolute={true}
+            loaderColor={'var(--primary)'}
+            backgroundColor="white"
+            loadingTexts=""
+        />
+    </div>;
+
+    if (slug) {
+        return <Link href={slug} scroll={false}>
+            <a>
+                {button}
+            </a>
+        </Link>
+    }
+    
+    else return button
 }
+
+export default StandardButton;
