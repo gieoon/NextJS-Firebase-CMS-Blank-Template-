@@ -36,9 +36,10 @@ export default function PageTransitionParent ({
     return (
         <div className={styles.PageTransition}>
             <AnimatePresence
-                initial={false}
+                initial={!false}
                 mode="wait"
-                >
+                onExitComplete={() => window.scrollTo(0, 0)}
+            >
                     <PageTransition>
                         <motion.div
                             id="transitions-wrapper"
