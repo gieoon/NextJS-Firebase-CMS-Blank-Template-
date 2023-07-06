@@ -3,7 +3,7 @@ import ArrowRight from "@mui/icons-material/ArrowRight";
 import Link from "next/link";
 import { FC, ReactElement } from "react";
 import Loading from '../../CMS/Loading';
-import styles from '../../styles/StandardButton.module.scss';
+import styles from '../../styles/shared/StandardButton.module.scss';
 
 interface StandardButtonProps {
     text: string,
