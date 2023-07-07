@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import styles from '../../styles/StandardInput.module.scss';
+import styles from '../../styles/shared/StandardInput.module.scss';
 
 interface StandardInputProps {
     id?: string,
