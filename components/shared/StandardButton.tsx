@@ -25,18 +25,20 @@ const StandardButton: FC<StandardButtonProps> = ({
     const button = <div className={styles.StandardButton + " " + (disabled ? styles.disabled : '')} onClick={() => {
         if (cb) cb();
     }}>
-        <div className={styles.background} />
-        <p>{text} 
-            { isCta ? <ArrowForward /> : <></> }
-        </p>
-
-        <Loading 
-            loading={isLoading}
-            forceAbsolute={true}
-            loaderColor={'var(--primary)'}
-            backgroundColor="white"
-            loadingTexts=""
-        />
+        <div className={styles.inner}>
+            <div className={styles.background} />
+            <p>{text} 
+                { isCta ? <ArrowForward /> : <></> }
+            </p>
+    
+            <Loading 
+                loading={isLoading}
+                forceAbsolute={true}
+                loaderColor={'var(--primary)'}
+                backgroundColor="white"
+                loadingTexts=""
+            />
+        </div>
     </div>;
 
     if (slug) {
