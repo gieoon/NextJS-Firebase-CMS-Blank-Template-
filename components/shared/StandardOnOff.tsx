@@ -1,5 +1,5 @@
 import { FC, ReactElement } from "react";
-import styles from '../../styles/StandardOnOff.module.scss';
+import styles from '../../styles/shared/StandardOnOff.module.scss';
 
 interface StandardOnOffProps {
     id?: string,
