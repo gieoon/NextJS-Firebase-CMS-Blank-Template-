@@ -1,0 +1,23 @@
+.StandardOnOff {
+    margin-bottom: 56px;//64px;
+    color: rgba(56, 54, 77, .6);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: .75rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    p, input {
+        display: inline-block;
+    }
+
+    input {
+        margin-left: 5px;
+        cursor: pointer;
+        border: 1px solid rgba(90, 79, 255, .2);
+        border-radius: 4px;
+        width: 18px;
+        height: 18px;
+    }
+}
