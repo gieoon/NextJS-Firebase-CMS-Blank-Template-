@@ -1,0 +1,59 @@
+.StandardPopup {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 85%;
+    width: 860px;
+    z-index: 999;
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+
+    &.visible {
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .background {
+        background-color: rgba(0,0,0,.75);
+        position: fixed;
+        inset: 0;
+
+        .modal {
+            top: 50%;
+            position: absolute;
+            margin: auto;
+            left: 0;
+            right: 0;
+            max-width: 650px;
+            transform: translateY(-50%);
+            background-color: rgb(245,245,245);
+            border-radius: 4px;
+
+            .header {
+                // height: 55px;
+                border-bottom: 1px solid grey;
+                padding: 1rem;
+            }
+        
+            .content {
+                flex-grow: 1;
+                overflow-y: scroll;
+                max-height: 100%;
+                padding: 1rem;
+                background-color: white;
+            }
+        
+            .bottom {
+                height: 75px;
+                border-top: 1px solid grey;
+                padding: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                background-color: rgb(245,245,245);
+            }
+        }
+    }
+}
