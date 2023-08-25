@@ -22,7 +22,7 @@ export const ANALYTICS_screenView = (screenName, screenClass) => {
         le(analytics, 'screen_view', {
             firebase_screen: screenName,
             firbase_screen_class: screenClass,
-            website: 'I Need Nature',
+            website: APP_TITLE,
         });
     } 
     else {
