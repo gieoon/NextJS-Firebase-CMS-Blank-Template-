@@ -1,11 +1,13 @@
 import { getAnalytics, logEvent as le } from "firebase/analytics";
+import { APP_TITLE } from "../constants";
 
 export const ANALYTICS_logEvent = (str, obj) => {
     
     const analytics = getAnalytics();
 
     if (!window.location.origin.includes('localhost:3000')) {
-        obj.website = 'I Need Nature';
+        if (!obj) obj = {};
+        obj.website = APP_TITLE;
         le(analytics, str, obj);
     } else {
         console.error("Not logging analytics event due to localhost");
