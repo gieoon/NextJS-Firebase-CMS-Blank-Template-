@@ -2,7 +2,7 @@ import Send from '@mui/icons-material/Send';
 import ArrowRight from "@mui/icons-material/ArrowRight";
 import Link from "next/link";
 import { FC, ReactElement } from "react";
-import Loading from '../../CMS/Loading';
+import Loading from '../CMS/Loading';
 import styles from '../../styles/shared/StandardMenuDropdown.module.scss';
 
 interface StandardMenuDropdownProps {
