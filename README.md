@@ -4,7 +4,7 @@ Our agency website, [webbi.co.nz](https://www.webbi.co.nz) is built with this te
 
 - Hosted by Vercel
 - Firestore and Firebase Storage as a CMS with basic editing capabilities.
-
+  
 This is a framework I'm using to make JAM stack websites for clients. 
 The way it is set up is via one main firebase projects with multi-tenancy of sub-projects per client.
 If this repo gets attention, I'll fix existing bugs, add in a demo and documentation to help you integrate your own version with firebase.
@@ -166,3 +166,7 @@ I have setup an automatic weekly and monthly backup system for all content via G
 1. Add in images describing each section
 1. Create `/admin` screen to edit the CMS dataflow and authentication easily via NodeJS firebase-admin API.
 1. Add Live URL demo link.
+1. CDN in front of Firebase Storage:
+https://stackoverflow.com/questions/61409735/how-can-i-implement-a-cdn-with-firebase-storage
+https://www.anothermadworld.com/why-you-should-put-a-cdn-like-cloudflare-in-front-of-firebase/
+https://www.anothermadworld.com/how-to-put-a-cdn-in-front-of-firebase-cloud-storage/
