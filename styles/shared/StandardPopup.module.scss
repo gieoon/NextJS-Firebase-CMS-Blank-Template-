@@ -27,6 +27,7 @@
             left: 0;
             right: 0;
             max-width: 650px;
+            overflow-y: auto;
             transform: translateY(-50%);
             background-color: rgb(245,245,245);
             border-radius: 4px;
@@ -39,7 +40,7 @@
         
             .content {
                 flex-grow: 1;
-                overflow-y: scroll;
+                overflow-y: auto;
                 max-height: 100%;
                 padding: 1rem;
                 background-color: white;
