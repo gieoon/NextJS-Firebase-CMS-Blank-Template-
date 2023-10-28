@@ -1,4 +1,4 @@
-import ArrowForward from '@mui/icons-material/ArrowForward';
+import Send from '@mui/icons-material/Send';
 import ArrowRight from "@mui/icons-material/ArrowRight";
 import Link from "next/link";
 import { FC, ReactElement } from "react";
@@ -12,6 +12,7 @@ interface StandardButtonProps {
     isCta?: boolean,
     disabled?: boolean,
     isLoading?: boolean,
+    isLeftAligned?: boolean,
 }
 
 const StandardButton: FC<StandardButtonProps> = ({
@@ -21,23 +22,35 @@ const StandardButton: FC<StandardButtonProps> = ({
     isCta,
     disabled,
     isLoading,
+    isLeftAligned,
 }) => {
-    const button = <div className={styles.StandardButton + " " + (disabled ? styles.disabled : '')} onClick={() => {
+    
+    const button = <div className={styles.StandardButton + " " + (disabled ? styles.disabled : '') + ' ' + (isLoading ? styles.loading : '')} 
+    onClick={() => {
         if (cb) cb();
     }}>
-        <div className={styles.inner}>
+        <div className={styles.inner + " " + (isLeftAligned ? styles.left_aligned : '')} >
             <div className={styles.background} />
             <p>{text} 
-                { isCta ? <ArrowForward /> : <></> }
+                { isCta ? <Send /> : <></> }
             </p>
     
-            <Loading 
-                loading={isLoading}
-                forceAbsolute={true}
-                loaderColor={'var(--primary)'}
-                backgroundColor="white"
-                loadingTexts=""
-            />
+            <div style={{
+                zIndex: 1,
+                margin: "auto",
+                position: "absolute",
+                left: 0,
+                right: 0,
+                // transform: 'translateX(-5px)',
+            }}>
+                <Loading 
+                    loading={isLoading}
+                    forceAbsolute={true}
+                    loaderColor='white'//{'var(--secondary)'}
+                    backgroundColor="transparent"
+                    loadingTexts=""
+                />
+            </div>
         </div>
     </div>;
 
