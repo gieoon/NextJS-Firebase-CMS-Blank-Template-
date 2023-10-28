@@ -1,6 +1,32 @@
 .StandardButton {
+    position: relative;
+    overflow: hidden;
+    min-width: fit-content;
     
+    height: 100%;
     // margin: 1.5rem 1rem;
+
+    &:after {
+        content: "";
+        inset: 0;
+        position: absolute;
+        background-color: var(--cta);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity .25s ease-in-out;
+        
+        border-radius: var(--border-radius);    
+        overflow: hidden;
+    }
+
+    &.loading {
+
+        pointer-events: none;
+        
+        &:after {
+            opacity: 1;
+        }
+    }
 
     &.margin_left {
         margin-left: 0;
@@ -8,20 +34,32 @@
 
     .inner {
         margin: auto;
-        padding: .5rem 1rem;
-        border-radius: 0;
-        width: fit-content;
+        padding: 1rem 1.5rem;//.25rem 1rem;
+        height: 100%;
+        width: 100%;
+        
+        // width: fit-content;
+        position: relative;
+        border-radius: var(--border-radius);    
+        overflow: hidden;
 
         background-color: var(--cta);
         font-weight: 700;
         color: white;
         font-size: 1.25rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         cursor: pointer;
         transition: background-color 75ms ease-in-out;
         box-shadow: inset 1px -24px 2px -20px rgb(0 0 0 / 20%);
 
         &.margin_left {
             margin-left: 0;
+        }
+
+        &.left_aligned {
+            margin-left: 0 !important;
         }
 
         &:hover {
@@ -38,6 +76,14 @@
             &:hover {
                 background-color: var(--cta-hover);
             }
+
+            
+        }
+
+        svg {
+            margin-left: 5px;
+            width: 20px;
+            height: 20px;
         }
 
         span {
@@ -46,5 +92,27 @@
             white-space: nowrap;
         }
 
+        span, p {
+            text-transform: capitalize; //uppercase;
+            letter-spacing: .5px;
+            white-space: nowrap;
+            margin: 0!important;
+            // margin: 0;
+            color: white !important;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+            font-size: 1.2rem;
+        }
+
+    }
+
+    @media only screen and (max-width: 991px) {
+        .inner {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;    
+        }
     }
 }
