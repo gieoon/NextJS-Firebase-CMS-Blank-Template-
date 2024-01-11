@@ -94,7 +94,7 @@ export default function CMS_Freelance({
 
     const [showingAdditionalDate, setShowingAdditionalDate] = useState(false);
     const [additionalDate, setAdditionalDate] = useState(new Date());
-    const [orderInList, setOrderInList] = useState([]);
+    const [orderInList, setOrderInList] = useState(undefined);
 
     const [editType, setEditType] = useState(0);
 
@@ -198,7 +198,13 @@ export default function CMS_Freelance({
             authTest();
             init();
         }
-    }, [loginComplete, currentUid, _projectName])
+    }, [loginComplete, currentUid, _projectName]);
+
+    useEffect(() => {
+        
+        document.getElementById('orderInList').value = orderInList;
+
+    }, [orderInList]);
 
     // Try and set some dummy data to check if it's possible
     const authTest = () => {
@@ -433,8 +439,9 @@ export default function CMS_Freelance({
         setShowSaving(true);
         setRteInitTitle("_"/*"Saving..."*/);
         setRteInitContent("_"/*"Saving..."*/);
-        let sectionName = pageData.sections[selectedSectionIndex].name;
+        setOrderInList(undefined);
         
+        let sectionName = pageData.sections[selectedSectionIndex].name;
         // Only save to storage if not already saved, determined by checking to see if it is local link.
         var imgObjs = [];
         const blobImgMap = {};
@@ -1283,7 +1290,7 @@ const SectionContent = ({
                     setNewTitle(entry.title || "");
                     setNewText(entry.content || "");
                     setNewFields(entry.fields || []);
-                    setOrderInList(entry.orderInList);
+                    setOrderInList(entry.orderInList || "");
 
                     setRteInitTitle(entry.title || "");
                     setRteInitContent(entry.content || "");
