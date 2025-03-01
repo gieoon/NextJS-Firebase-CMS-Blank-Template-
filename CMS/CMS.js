@@ -49,7 +49,7 @@ export default function CMS({
     useEffect(()=>{
         // Listen to CMS websitecontent editing events.
         window.addEventListener("message", receivedMessage, false);
-
+        console.log("listening for events in child iframe");
         // TODO remove this, this is only to be prompted by the parent from Craftie.xyz.
         // highlightEditable({origin: allowedOrigins, data: "startEdit"});
         window.onclick = (e) => {
@@ -65,25 +65,26 @@ export default function CMS({
             //     e.stopPropagation();
             // }
         }
-        if (window.location.pathname === '/login') {
-            var clear = setInterval(() => {
-                if (!isStarted) {
-                    window.parent.postMessage({
-                        actionType: 'canWeStartNow?',
-                    }, '*');
-                }
-                else {
-                    console.log("started, so clearing now.")
-                    clearInterval(clear);
-                }
+        // if (window.location.pathname === '/login') {
+        //     var clear = setInterval(() => {
+        //         if (!isStarted) {
+        //             window.parent.postMessage({
+        //                 actionType: 'canWeStartNow?',
+        //             }, '*');
+        //             console.log("sending canWeStartNow? from child to parent");
+        //         }
+        //         else {
+        //             console.log("started, so clearing now.")
+        //             clearInterval(clear);
+        //         }
 
-            }, 1000);
-        }
+        //     }, 1000);
+        // }
     }, []);
 
     // Handles received messages from parent.
     const receivedMessage = (evt) => {
-        // console.log('receivedMessage: ', receivedMessage, evt.data)
+        console.log('receivedMessage: ', evt.data)
         // 'highlight'
         // if(!allowedOrigins.some(a => evt.origin.includes(a))) return;
         // !evt.origin.includes(allowedOrigins)) return;
@@ -94,6 +95,12 @@ export default function CMS({
             setInterval(() => {
                 addEditButton();
             }, 1000);
+        }
+        else if (evt.data.actionType === "ping") {
+            isStarted = true;
+            window.parent.postMessage({
+                actionType: 'pong',
+            }, '*');
         }
         else if(evt.data.actionType === 'updateElement'){
             // document.getElementById(currentFileId).classList.toggle('editing');
@@ -123,6 +130,7 @@ export default function CMS({
     }, []);
 
     const addEditButton = () => {
+
         // Text
         const elements = Array.from(
             document.querySelectorAll('.cp-editable')
@@ -503,7 +511,8 @@ export default function CMS({
         var matchIndex = parentElement.innerHTML.indexOf('<div class="editables-wrapper"');
         // var innerText;
         
-        var original_HTML = parentElement.innerHTML.substring(0, matchIndex);
+        // divs cannot be read, causing a quill error, so strip them out.
+        var original_HTML = parentElement.innerHTML.substring(0, matchIndex).replace(/<\/?div>/g, "");
         var singleQuillId = undefined;
 
         if(parentElement.dataset.content){
