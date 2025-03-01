@@ -1,6 +1,6 @@
 /* Communicates with client iframe via npm firestore-cms-iframe package. */
 
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { Plus, Image, X } from 'react-feather';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { STORAGE_ROOT } from './CMS_Freelance';
@@ -9,12 +9,14 @@ import Loading from './Loading';
 import { getStorage, ref, getDownloadURL, uploadBytes, deleteObject } from 'firebase/storage';
 import { doc, getDoc, getFirestore, setDoc } from 'firebase/firestore';
 
+
 // Edits webpages based on a list of id's.
 export default function WebpageEditor({
     pageData, 
     projectName,
     email,
 }){
+    const pingInterval = useRef(null);
 
     var storage = getStorage();
 
@@ -27,6 +29,7 @@ export default function WebpageEditor({
     const [objectFiles, setObjectFiles] = useState({});
     const [loading, setLoading] = useState(true);
     const [showingDeleteDialog, setShowingDeleteDialog] = useState(false);
+    const [clientHasResponded, setClientHasResponded] = useState(false);
 
     useEffect(()=>{
         // Client has built in script that listens to 'highlight' event.
@@ -38,8 +41,6 @@ export default function WebpageEditor({
         loadWebsiteContent().then(d => {
             setWebsiteContent(d);
         })
-
-        window.addEventListener('message', receiveMessage, false);
         // var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
         // var eventer = window[eventMethod];
         // var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
@@ -48,9 +49,30 @@ export default function WebpageEditor({
         //     console.log('PARENT RECEIVED MESSAGE!: ', evt);
         //     receiveMessage(evt);
         // }, false);
-        return () => {
-            window.removeEventListener('message', receiveMessage);
-        }
+        // return () => {
+        //     window.removeEventListener('message', receiveMessage);
+        // }
+        window.addEventListener("message", (event) => {
+            // console.log("Message from child iframe:", event.data);
+            if (event.data.actionType === "pong") {
+                setClientHasResponded(true);
+                setLoading(false);
+                // console.log("pingInterval: ", pingInterval.current);
+                if (pingInterval.current) {
+                    console.log("clearing ping interval")
+                    clearInterval(pingInterval.current);
+                    pingInterval.current = null;
+                }
+
+                // Respond with startEdit after client has confirmed with a pong
+                const d = {
+                    actionType: 'startEdit',
+                    websiteContent: websiteContent,
+                };
+                const iframe = document.querySelector('iframe[title="Client Website"]').contentWindow;
+                iframe.postMessage(d, '*' /*window.location.href*/);
+            }
+        }, false);
 
     }, [projectName]);
 
@@ -58,6 +80,9 @@ export default function WebpageEditor({
         // Need to reset this because click listener doesn't hold latest state data.
         window.removeEventListener('message', receiveMessage);
         window.addEventListener('message', receiveMessage, false);
+        return () => {
+            window.removeEventListener('message', receiveMessage);
+        }
     }, [websiteContent]);
 
     // Receive message from embedded iframe.
@@ -224,16 +249,25 @@ export default function WebpageEditor({
     };
 
     const iframeLoadComplete = () => {
-        console.log('IFRAME loaded, Sending data to client: ', websiteContent);
-        const iframe = document.querySelector('iframe').contentWindow;
-        const d = {
-            actionType: 'startEdit',
-            websiteContent: websiteContent,
+        console.log('IFRAME loaded, Sending data to child: ', websiteContent);
+        const iframe = document.querySelector('iframe[title="Client Website"]').contentWindow;
+
+        const ping = {
+            actionType: 'ping',
         };
-        iframe.postMessage(d, '*' /*window.location.href*/);
+        iframe.postMessage(ping, '*');
 
         iframe.postMessage({actionType: "initEditing",}, '*');
-        setLoading(false);
+        // setLoading(false);
+
+        // Repeatedly send ping until we get a response and set loading to false.
+        // If websiteContent is not checked, setInterval is called multiple times with different values.
+        if (websiteContent) {
+            pingInterval.current = setInterval(() => {
+                console.log("parent posting ping: ", pingInterval.current);
+                iframe.postMessage(ping, '*');
+            }, 1000);
+        }
     }
 
     const cancelImageClicked = (e) => {
@@ -285,6 +319,7 @@ export default function WebpageEditor({
                 file: out,
             }, '*');
             setLoading(false);
+            
         })
     }
 
