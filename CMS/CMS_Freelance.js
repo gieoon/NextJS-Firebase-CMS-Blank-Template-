@@ -1169,7 +1169,9 @@ export default function CMS_Freelance({
 
                         <div>
                             <label htmlFor="orderInList">Order to display this in</label>
-                            <input id="orderInList" defaultValue={orderInList} />
+                            <input id="orderInList" defaultValue={orderInList} value={orderInList} onChange={(e) => {
+                                setOrderInList(e.target.value);
+                            }}/>
                         </div>
 
                     </div>
