@@ -439,7 +439,6 @@ export default function CMS_Freelance({
         setShowSaving(true);
         setRteInitTitle("_"/*"Saving..."*/);
         setRteInitContent("_"/*"Saving..."*/);
-        setOrderInList(undefined);
         
         let sectionName = pageData.sections[selectedSectionIndex].name;
         // Only save to storage if not already saved, determined by checking to see if it is local link.
