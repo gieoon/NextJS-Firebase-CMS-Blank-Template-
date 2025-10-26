@@ -573,7 +573,13 @@ const DeleteDialog = ({
                     </div>
                     <div className={styles.ok} onClick={()=>{
                         console.log("Deleting file: ", showingDeleteDialog);
-                        showingDeleteDialog.cb(showingDeleteDialog.file);
+                        if(showingDeleteDialog.file.downloadUrl && showingDeleteDialog.file.downloadUrl.startsWith('blob:')){
+                            console.log("Cannot delete file with blob URL: ", showingDeleteDialog.file);
+                            return;
+                        }
+                        else {
+                            showingDeleteDialog.cb(showingDeleteDialog.file);
+                        }
 
                         setShowingDeleteDialog(false);
                     }}>
