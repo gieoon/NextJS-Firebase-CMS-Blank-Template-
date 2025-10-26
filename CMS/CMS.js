@@ -84,7 +84,6 @@ export default function CMS({
 
     // Handles received messages from parent.
     const receivedMessage = (evt) => {
-        console.log('receivedMessage: ', evt.data)
         // 'highlight'
         // if(!allowedOrigins.some(a => evt.origin.includes(a))) return;
         // !evt.origin.includes(allowedOrigins)) return;
